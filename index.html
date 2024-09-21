@@ -24,16 +24,30 @@
     <section id="noticias" class="container">
         <h2>Últimas Notícias</h2>
         <div class="noticia">
-            <h3><a href="noticia1.html">Lorem ipsum dolor(com amostra de vídeo)</a></h3>
+            <h2><a href="noticia1.html">Lorem ipsum dolor(com amostra de vídeo)</a></h2>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur explicabo autem expedita, assumenda quae inventore totam exercitationem...</p>
         </div>
         <div class="noticia">
-            <h3><a href="noticia2.html">Lorem ipsum dolor(imagem teste)</a></h3>
+            <h2><a href="noticia2.html">Lorem ipsum dolor(imagem teste)</a></h2>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur explicabo autem expedita, assumenda quae inventore totam exercitationem...</p>
         </div>
-        <div class="noticia">
-            <h3><a href="noticia3.html">Lorem ipsum dolor</a></h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur explicabo autem expedita, assumenda quae inventore totam exercitationem...</p>
+        <div class="news-item">
+            <div class="news-video">
+                <!-- Miniatura do vídeo (use uma imagem estática ou thumbnail do vídeo) -->
+                <img src="" onerror="this.src='imagens/jorge.png';" alt="Imagem do vídeo" class="thumbnail" id="videoThumbnail" >
+                <span class="video-duration">3 min</span>
+            </div>
+            <div class="news-content">
+                <h2><a href="noticia3.html">Viagem a China e Novas Visões</a></h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi delectus veritatis laudantium labore tenetur ex amet expedita ea libero ad, pariatur dolore voluptatibus, nihil reiciendis cumque, tempore eligendi modi atque.</p></div>
+        </div>
+         <!-- Modal para exibição do vídeo -->
+         <div id="videoModal" class="modal">
+            <div class="modal-content">
+                <h2 class="news-video-title">Lorem Ipsum</h2>
+                <span class="close" id="closeModal">&times;</span>
+                <iframe id="videoFrame" src="https://www.youtube.com/embed/LXb3EKWsInQ?controls=1&modestbranding=0&rel=0" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     </section>
     <section id="eventos" class="container">
@@ -49,5 +63,6 @@
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script src="scripts.js"></script>
 </body>
 </html>
