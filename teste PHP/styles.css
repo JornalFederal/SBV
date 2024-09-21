@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+.sobre{
+    
+    color: #00420c;
+}
+header {
+    background-color: #195128;
+    background-image: radial-gradient(ellipse at center, #17882c 1%, #00510f 100%);
+    color: #fff;
+    padding: 14px 0 0 0;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+section h2 {
+    color: #12722c;
+    margin-bottom: 10px;
+}
+a{
+    color: #333;
+    text-decoration: none;
+}
+ a:hover{
+    color: #333;
+    text-decoration: underline;
+}
+
+h3 a:any-link {
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+}
+#email{
+    text-decoration: none;
+    color:black;
+}
+#email:hover{
+    text-decoration: underline;
+}
+.center{
+    margin-top: 25px;
+    text-align: center;
+}
+.noticia {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sobretitle{
+    margin-top: 25px;
+}
+
+footer {
+    background: #116828;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 5px;
+}
+
+footer p {
+    margin: 0;
+}
+
+form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+form label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #195128;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #15882c;
+}
+.news-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.news-list li {
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+}
+
+.news-list li h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.news-list li p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.news-list li a {
+    color: #195128;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.news-list li a:hover {
+    text-decoration: underline;
+}
