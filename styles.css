@@ -161,6 +161,10 @@ button:hover {
     color: #555;
 }
 
+#arrumar{
+    color: #12722c;
+}
+
 .news-list li a {
     color: #195128;
     text-decoration: none;
