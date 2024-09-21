@@ -170,3 +170,10 @@ button:hover {
 .news-list li a:hover {
     text-decoration: underline;
 }
+
+.chamativo{
+    font-size: 35px;
+    margin-bottom: -5px;
+    margin-left: -5px;
+    text-align: center;
+}
