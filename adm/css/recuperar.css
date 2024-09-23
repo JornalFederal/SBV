@@ -1,0 +1,66 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Cor de fundo clara */
+    color: #333; /* Cor do texto principal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    background-color: white; /* Fundo branco para destacar o conteúdo */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.description {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #000;
+}
+
+.form-recuperar-senha input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    color: #000;
+}
+
+.form-recuperar-senha button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 20px;
+    border: none;
+    background-color: #006600;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+.links {
+    margin-top: 20px;
+}
+
+.voltar {
+    color: #006600;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.voltar:hover {
+    text-decoration: underline;
+}

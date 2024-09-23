@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jornal Estudantil IFSP SBV</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
 </head>
 <body>
     <header>
@@ -12,29 +12,21 @@
             <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
             <nav>
                     <ul>
-                        <li><a href="index.html">Início</a></li>
-                        <li><a href="todas-noticias.html">Notícias</a></li>
-                        <li><a href="#eventos">Eventos</a></li>
-                        <li><a href="sobre.html">Sobre</a></li>
-                        <li><a href="sugestoes.html">Sugestões</a></li>
+                        <li><a href="index.php">Início</a></li>
+                        <li><a href="todas-noticias.php">Notícias</a></li>
+                        <li><a href="videos.php">Vídeos</a></li>
+                        <li><a href="sobre.php">Sobre</a></li>
+                        <li><a href="sugestoes.php">Sugestões</a></li>
                     </ul>
             </nav>
         </div>
     </header>
     <section id="noticias" class="container">
-        <h2>Últimas Notícias</h2>
-        <div class="noticia">
-            <h2><a href="noticia1.html">Lorem ipsum dolor(com amostra de vídeo)</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur explicabo autem expedita, assumenda quae inventore totam exercitationem...</p>
-        </div>
-        <div class="noticia">
-            <h2><a href="noticia2.html">Lorem ipsum dolor(imagem teste)</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur explicabo autem expedita, assumenda quae inventore totam exercitationem...</p>
-        </div>
+        <h2>Notícias Gravadas</h2>
         <div class="news-item">
             <div class="news-video">
                 <!-- Miniatura do vídeo (use uma imagem estática ou thumbnail do vídeo) -->
-                <img src="" onerror="this.src='imagens/jorge.png';" alt="Imagem do vídeo" class="thumbnail" id="videoThumbnail" >
+                <img src="" onerror="this.src='assets/img/jorge.png';" alt="Imagem do vídeo" class="thumbnail" id="videoThumbnail" >
                 <span class="video-duration">3 min</span>
             </div>
             <div class="news-content">
@@ -50,19 +42,11 @@
             </div>
         </div>
     </section>
-    <section id="eventos" class="container">
-        <h2>Próximos Eventos</h2>
-        <ul>
-            <li>10/09 - Palestra: Inovações Tecnológicas</li>
-            <li>12/09 - Workshop: Programação para Iniciantes</li>
-            <li>14/09 - Feira de Ciências</li>
-        </ul>
-    </section>
     <footer>
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
-    <script src="scripts.js"></script>
+    <script src="assets/js/scripts.js"></script>
 </body>
 </html>
