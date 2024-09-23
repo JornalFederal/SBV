@@ -1,10 +1,38 @@
+<?php
+ 
+session_start();
+
+  try {
+   
+    include "backend/conexao.php";
+ 
+    $sql = "SELECT * FROM tb_jornal ORDER BY data_cad DESC LIMIT 3;";
+ 
+    $stmt = $conn->prepare($sql);
+ 
+    $stmt->execute();
+
+    $menu = $stmt->fetchAll((PDO::FETCH_ASSOC));
+
+   
+   
+ 
+  }catch(PDOException $err){
+    echo "Erro".$err->getMessage();
+  }
+ 
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jornal Estudantil IFSP SBV</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -12,29 +40,32 @@
             <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
             <nav>
                     <ul>
-                        <li><a href="index.html">Início</a></li>
-                        <li><a href="todas-noticias.html">Notícias</a></li>
-                        <li><a href="#eventos">Eventos</a></li>
-                        <li><a href="sobre.html">Sobre</a></li>
-                        <li><a href="sugestoes.html">Sugestões</a></li>
+                        <li><a href="index.php">Início</a></li>
+                        <li><a href="todas-noticias.php">Notícias</a></li>
+                        <li><a href="videos.php">Vídeos</a></li>
+                        <li><a href="sobre.php">Sobre</a></li>
+                        <li><a href="sugestoes.php">Sugestões</a></li>
                     </ul>
             </nav>
         </div>
     </header>
     <section id="noticias" class="container">
         <h2>Últimas Notícias</h2>
-        <div class="noticia">
-            <h2><a href="noticia1.html">Lorem ipsum dolor(com amostra de vídeo)</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur explicabo autem expedita, assumenda quae inventore totam exercitationem...</p>
-        </div>
-        <div class="noticia">
-            <h2><a href="noticia2.html">Lorem ipsum dolor(imagem teste)</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur explicabo autem expedita, assumenda quae inventore totam exercitationem...</p>
-        </div>
+        <?php
+                foreach($menu as $item){
+            ?>
+            <div class="noticia">
+            <a href="noticias.php?id=<?php echo $item['id']?>" class="btn btn-home mb-2">
+                <h2><?php echo $item['titulo']; ?></h2>
+                <p><?php echo $item['desc']; ?></p>
+            </a>
+            </div>
+            <?php
+            };?>
         <div class="news-item">
             <div class="news-video">
                 <!-- Miniatura do vídeo (use uma imagem estática ou thumbnail do vídeo) -->
-                <img src="" onerror="this.src='imagens/jorge.png';" alt="Imagem do vídeo" class="thumbnail" id="videoThumbnail" >
+                <img src="" onerror="this.src='assets/img/jorge.png';" alt="Imagem do vídeo" class="thumbnail" id="videoThumbnail" >
                 <span class="video-duration">3 min</span>
             </div>
             <div class="news-content">
@@ -63,6 +94,6 @@
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
-    <script src="scripts.js"></script>
+    <script src="assets/js/scripts.js"></script>
 </body>
 </html>
