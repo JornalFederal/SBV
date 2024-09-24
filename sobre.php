@@ -14,11 +14,7 @@
                 <ul>
                     <li><a href="index.php">Início</a></li>
                     <li><a href="todas-noticias.php">Notícias</a></li>
-<<<<<<< HEAD
                     <li><a href="videos.php">Vídeos</a></li>
-=======
-                    <li><a href="index.php #eventos">Eventos</a></li>
->>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
                     <li><a href="sobre.php">Sobre</a></li>
                     <li><a href="sugestoes.php">Sugestões</a></li>
                 </ul>
@@ -46,11 +42,7 @@
         </ul>
 
         <h3 class="sobretitle">Contato</h3>
-<<<<<<< HEAD
         <p>Para sugestões, colaborações ou dúvidas, entre em contato conosco pelo e-mail: <a id="email" href="mailto:jornalfederal.ifsp.sbv@gmail.com">jornalfederal.ifsp.sbv@gmail.com</a></p><br><br>
-=======
-        <p>Para sugestões, colaborações ou dúvidas, entre em contato conosco pelo e-mail: <a id="email" href="mailto:jornalfederal.ifsp.sbv@gmail.com">jornalfederal.ifsp.sbv@gmail.com</a></p>
->>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
         <div class="center"><a href="index.html" class="button">Voltar para Início</a></div>
     </section>
     <footer>

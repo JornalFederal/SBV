@@ -14,11 +14,7 @@
                 <ul>
                     <li><a href="index.php">Início</a></li>
                     <li><a href="todas-noticias.php">Notícias</a></li>
-<<<<<<< HEAD
                     <li><a href="videos.php">Vídeos</a></li>
-=======
-                    <li><a href="index.php #eventos">Eventos</a></li>
->>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
                     <li><a href="sobre.php">Sobre</a></li>
                     <li><a href="sugestoes.php">Sugestões</a></li>
                 </ul>

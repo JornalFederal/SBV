@@ -36,7 +36,6 @@ session_start();
 <body>
     <header>
         <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
-<<<<<<< HEAD
         <div class="container">
             <nav>
                 <ul>
@@ -48,45 +47,24 @@ session_start();
                 </ul>
             </nav>
         </div>
-=======
-        <nav>
-            <ul>
-                <li><a href="index.php">Início</a></li>
-                <li><a href="todas-noticias.php">Notícias</a></li>
-                <li><a href="index.php #eventos">Eventos</a></li>
-                <li><a href="sobre.php">Sobre</a></li>
-                <li><a href="sugestoes.php">Sugestões</a></li>
-            </ul>
-        </nav>
->>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
     </header>
     <div class="container">
     <?php
                 foreach($menu as $item){
             ?>
             <div class="noticia">
-<<<<<<< HEAD
             <a href="noticias.php?id=<?php echo $item['id']?>" class="">
                 <h2><?php echo $item['titulo']; ?></h2>
             </a>
                 <p><?php echo $item['desc']; ?></p>
-=======
-            <a href="noticias.php?id=<?php echo $item['id']?>" class="btn btn-home mb-2">
-                <h2><?php echo $item['titulo']; ?></h2>
-                <p><?php echo $item['desc']; ?></p>
-            </a>
->>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
             </div>
             <?php
             };?>
     </div>
-<<<<<<< HEAD
     <footer>
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
-=======
->>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
 </body>
 </html>
