@@ -35,6 +35,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jornal Estudantil IFSP</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="assets/css/modal.css">
 </head>
 <body>
@@ -53,6 +54,24 @@ session_start();
         </div>
     </header>
     <div class="noticia-container">
+=======
+    <link rel="stylesheet" href="assets/css/noticia.css">
+</head>
+<body>
+    <header>
+        <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Início</a></li>
+                <li><a href="todas-noticias.php">Notícias</a></li>
+                <li><a href="index.php #eventos">Eventos</a></li>
+                <li><a href="sobre.php">Sobre</a></li>
+                <li><a href="sugestoes.php">Sugestões</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+>>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
     <?php
         foreach($menu as $item){
         ?>
@@ -61,15 +80,22 @@ session_start();
                 <p><?php echo $item['conteudo']; ?></p>
                 <br>
                 <br>
+<<<<<<< HEAD
                 <div class="center"><a href="index.php"><button class="voltar-button">Voltar</button></a></div>
+=======
+                <a href="index.php"><button class="voltar-button">Voltar</button></a>
+>>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
             </div>
         <?php
     };?>
     </div>
+<<<<<<< HEAD
     <footer>
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
+=======
+>>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
 </body>
 </html>
