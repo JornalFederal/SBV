@@ -53,6 +53,25 @@ session_start();
         </div>
     </header>
     <div class="noticia-container">
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" href="assets/css/noticia.css">
+</head>
+<body>
+    <header>
+        <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Início</a></li>
+                <li><a href="todas-noticias.php">Notícias</a></li>
+                <li><a href="index.php #eventos">Eventos</a></li>
+                <li><a href="sobre.php">Sobre</a></li>
+                <li><a href="sugestoes.php">Sugestões</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+>>>>>>> bd51339d52f45af2a399febacb097913b05231b8
     <?php
         foreach($menu as $item){
         ?>
@@ -62,6 +81,10 @@ session_start();
                 <br>
                 <br>
                 <div class="center"><a href="index.php"><button class="voltar-button">Voltar</button></a></div>
+<<<<<<< HEAD
+=======
+                <a href="index.php"><button class="voltar-button">Voltar</button></a>
+>>>>>>> bd51339d52f45af2a399febacb097913b05231b8
             </div>
         <?php
     };?>
