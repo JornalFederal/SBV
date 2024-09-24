@@ -54,17 +54,14 @@ session_start();
                 foreach($menu as $item){
             ?>
             <div class="noticia">
-<<<<<<< HEAD
             <a href="noticias.php?id=<?php echo $item['id']?>" class="">
                 <h2><?php echo $item['titulo']; ?></h2>
             </a>
                 <p><?php echo $item['desc']; ?></p>
-=======
             <a href="noticias.php?id=<?php echo $item['id']?>" class="btn btn-home mb-2">
                 <h2><?php echo $item['titulo']; ?></h2>
                 <p><?php echo $item['desc']; ?></p>
             </a>
->>>>>>> b138985621ccf1c5e5cb7325beea699f11fe5e5a
             </div>
             <?php
             };?>
