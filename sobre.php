@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre - Jornal Estudantil IFSP SBV</title>
     <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -15,7 +14,7 @@
                 <ul>
                     <li><a href="index.php">Início</a></li>
                     <li><a href="todas-noticias.php">Notícias</a></li>
-                    <li><a href="index.php #eventos">Eventos</a></li>
+                    <li><a href="videos.php">Vídeos</a></li>
                     <li><a href="sobre.php">Sobre</a></li>
                     <li><a href="sugestoes.php">Sugestões</a></li>
                 </ul>
@@ -43,7 +42,7 @@
         </ul>
 
         <h3 class="sobretitle">Contato</h3>
-        <p>Para sugestões, colaborações ou dúvidas, entre em contato conosco pelo e-mail: <a id="email" href="mailto:jornalfederal.ifsp.sbv@gmail.com">jornalfederal.ifsp.sbv@gmail.com</a></p>
+        <p>Para sugestões, colaborações ou dúvidas, entre em contato conosco pelo e-mail: <a id="email" href="mailto:jornalfederal.ifsp.sbv@gmail.com">jornalfederal.ifsp.sbv@gmail.com</a></p><br><br>
         <div class="center"><a href="index.html" class="button">Voltar para Início</a></div>
     </section>
     <footer>

@@ -5,9 +5,10 @@
 }
 
 header {
-    background-color: #006600;
-    color: white;
-    padding: 10px 0;
+    background-color: #195128;
+    background-image: radial-gradient(ellipse at center, #17882c 1%, #00510f 100%);
+    color: #fff;
+    padding: 14px 0 0 0;
     text-align: center;
 }
 
@@ -49,7 +50,7 @@ body {
 }
 
 /* Estilos para o container principal que centraliza o conteúdo */
-.container {
+.noticia-container {
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;

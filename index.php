@@ -32,7 +32,6 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jornal Estudantil IFSP SBV</title>
     <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -55,10 +54,10 @@ session_start();
                 foreach($menu as $item){
             ?>
             <div class="noticia">
-            <a href="noticias.php?id=<?php echo $item['id']?>" class="btn btn-home mb-2">
+            <a href="noticias.php?id=<?php echo $item['id']?>" class="">
                 <h2><?php echo $item['titulo']; ?></h2>
-                <p><?php echo $item['desc']; ?></p>
             </a>
+                <p><?php echo $item['desc']; ?></p>
             </div>
             <?php
             };?>

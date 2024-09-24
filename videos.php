@@ -22,25 +22,25 @@
         </div>
     </header>
     <section id="noticias" class="container">
-        <h2>Notícias Gravadas</h2>
-        <div class="news-item">
-            <div class="news-video">
-                <!-- Miniatura do vídeo (use uma imagem estática ou thumbnail do vídeo) -->
-                <img src="" onerror="this.src='assets/img/jorge.png';" alt="Imagem do vídeo" class="thumbnail" id="videoThumbnail" >
-                <span class="video-duration">3 min</span>
+            <h2>Notícias Gravadas</h2>
+            <div class="news-item">
+                <div class="news-video">
+                    <!-- Miniatura do vídeo (use uma imagem estática ou thumbnail do vídeo) -->
+                    <img src="" onerror="this.src='assets/img/jorge.png';" alt="Imagem do vídeo" class="thumbnail" id="videoThumbnail" >
+                    <span class="video-duration">3 min</span>
+                </div>
+                <div class="news-content">
+                    <h2 id="arrumar">Viagem a China e Novas Visões</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi delectus veritatis laudantium labore tenetur ex amet expedita ea libero ad, pariatur dolore voluptatibus, nihil reiciendis cumque, tempore eligendi modi atque.</p></div>
             </div>
-            <div class="news-content">
-                <h2 id="arrumar">Viagem a China e Novas Visões</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi delectus veritatis laudantium labore tenetur ex amet expedita ea libero ad, pariatur dolore voluptatibus, nihil reiciendis cumque, tempore eligendi modi atque.</p></div>
-        </div>
-         <!-- Modal para exibição do vídeo -->
-         <div id="videoModal" class="modal">
-            <div class="modal-content">
-                <h2 class="news-video-title">Lorem Ipsum</h2>
-                <span class="close" id="closeModal">&times;</span>
-                <iframe id="videoFrame" src="https://www.youtube.com/embed/LXb3EKWsInQ?controls=1&modestbranding=0&rel=0" frameborder="0" allowfullscreen></iframe>
+             <!-- Modal para exibição do vídeo -->
+             <div id="videoModal" class="modal">
+                <div class="modal-content">
+                    <h2 class="news-video-title">Lorem Ipsum</h2>
+                    <span class="close" id="closeModal">&times;</span>
+                    <iframe id="videoFrame" src="https://www.youtube.com/embed/LXb3EKWsInQ?controls=1&modestbranding=0&rel=0" frameborder="0" allowfullscreen></iframe>
+                </div>
             </div>
-        </div>
     </section>
     <footer>
         <div class="container">

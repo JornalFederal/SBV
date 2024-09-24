@@ -76,7 +76,6 @@ h3 a:any-link {
     text-decoration: underline;
 }
 .center{
-    margin-top: 25px;
     text-align: center;
 }
 .noticia {
@@ -92,11 +91,16 @@ h3 a:any-link {
 }
 
 footer {
-    background: #116828;
+    width: 100%;
+    background-color: #195128;
+    background-image: radial-gradient(ellipse at center, #0e641e 1%, #00510f 100%);
     color: #fff;
+    padding: 14px 0;
+    position: relative;
     text-align: center;
-    padding: 10px 0;
-    margin-top: 5px;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 footer p {
@@ -138,8 +142,10 @@ button {
 }
 
 button:hover {
-    background-color: #15882c;
+    background-color: #196b2f;
+    text-decoration: underline;
 }
+
 .news-list {
     list-style-type: none;
     padding: 0;
@@ -163,6 +169,7 @@ button:hover {
 
 #arrumar{
     color: #12722c;
+    font-size: 24px;
 }
 
 .news-list li a {
@@ -307,4 +314,19 @@ button:hover {
     .news-content p {
         font-size: 0.8rem;
     }
+}
+
+/* Estilos para o container principal que centraliza o conteúdo */
+.noticia-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Estilos para a área de informações da notícia */
+.noticia-info {
+    text-align: left;
 }
