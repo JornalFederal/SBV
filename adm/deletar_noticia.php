@@ -48,7 +48,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deletar Notícias</title>
-    <link rel="stylesheet" href="assets/css/modal.css">
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
     <header>

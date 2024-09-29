@@ -54,25 +54,15 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Login</title>
-    <link rel="stylesheet" href="assets/css/modal.css">
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
-            <nav>
-                    <ul>
-                        <li><a href="index.php">Início</a></li>
-                        <li><a href="todas-noticias.php">Notícias</a></li>
-                        <li><a href="videos.php">Vídeos</a></li>
-                        <li><a href="sobre.php">Sobre</a></li>
-                        <li><a href="sugestoes.php">Sugestões</a></li>
-                    </ul>
-            </nav>
+            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1><br>
         </div>
     </header>
-<body>
-    <h2>Login</h2>
+    <h3 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Login</h3>
 
     <?php if (isset($erro)): ?>
         <p style="color: red;"><?php echo $erro; ?></p>
