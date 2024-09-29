@@ -13,8 +13,8 @@ if ($conn->connect_error) {
 }
 
 // Inserir usuário e senha criptografada
-$usuario = 'Gabriel'; // Nome do usuário
-$senha = password_hash('#!IFJornal741#!', PASSWORD_DEFAULT); // Criptografa a senha
+$usuario = 'admin'; // Nome do usuário
+$senha = password_hash('admin123', PASSWORD_DEFAULT); // Criptografa a senha
 
 $sql = "INSERT INTO usuarios (usuario, senha) VALUES ('$usuario', '$senha')";
 
