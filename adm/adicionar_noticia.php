@@ -74,7 +74,6 @@ $conn->close();
 
         <button type="submit">Adicionar Notícia</button>
     </form>
-
     <p><a href="logout.php">Sair</a></p>
 </body>
 </html>
