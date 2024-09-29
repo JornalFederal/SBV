@@ -48,7 +48,23 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deletar Notícias</title>
+    <link rel="stylesheet" href="assets/css/modal.css">
 </head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
+            <nav>
+                    <ul>
+                        <li><a href="index.php">Início</a></li>
+                        <li><a href="todas-noticias.php">Notícias</a></li>
+                        <li><a href="videos.php">Vídeos</a></li>
+                        <li><a href="sobre.php">Sobre</a></li>
+                        <li><a href="sugestoes.php">Sugestões</a></li>
+                    </ul>
+            </nav>
+        </div>
+    </header>
 <body>
     <h2>Lista de Notícias</h2>
 
