@@ -7,7 +7,7 @@ try {
 
     // comando que sera executado no banco de dados
     // Selecionar todas as notícias e ordenar por ID em ordem decrescente
-    $sql = "SELECT * FROM tb_jornal ORDER BY id DESC";
+    $sql = "SELECT * FROM tb_jornal WHERE midia IS NULL ORDER BY id DESC";
  
     $stmt = $conn->prepare($sql);
  
@@ -45,7 +45,8 @@ try {
             </nav>
         </div>
     </header>
-    <div class="container">
+    <div id="noticias" class="container">
+         <h2>Todas as Notícias</h2><br>
     <?php
                 foreach($menu as $item){
             $dataFormatada = date('d/m/Y', strtotime($item['data_cad']))

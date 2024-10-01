@@ -1,3 +1,26 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include "backend/conexao.php";
+
+    $nome = $_POST['nome'];
+    $sugestao = $_POST['sugestao'];
+
+    try {
+        // Inserir sugestão no banco de dados
+        $sql = "INSERT INTO tb_sugestoes (nome, sugestao) VALUES (:nome, :sugestao)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':sugestao', $sugestao);
+        $stmt->execute();
+
+        echo json_encode(['mensagem' => "Sugestão enviada com sucesso!"]); // Envia uma resposta JSON
+    } catch(PDOException $e) {
+        echo json_encode(['mensagem' => "Erro ao enviar sugestão: " . $e->getMessage()]); // Resposta de erro em JSON
+    }
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -23,20 +46,15 @@
     </header>
     <section class="container">
         <h2>Caixa de Sugestões</h2>
-        <p>Quer compartilhar suas ideias ou dar sugestões para melhorar o nosso jornal? Preencha o formulário abaixo e nos envie sua sugestão!</p>
-        <form action="mailto:jornalfederal.ifsp.sbv@gmail.com" method="POST" enctype="text/plain" target="_blank">
+        <p>Quer compartilhar suas ideias ou dar sugestões para melhorar o nosso jornal? Preencha o formulário abaixo e nos envie sua sugestão! Caso queira ser Anônimo é só deixar o nome padrão!</p>
+        <form id="sugestaoForm">
             <label for="nome">Nome:</label><br>
-            <input type="text" id="nome" name="Nome" required><br><br>
-
-            <label for="email">E-mail:</label><br>
-            <input type="email" id="email" name="Email" required><br><br>
+            <input type="text" id="nome" name="nome" value="Anônimo" placeholder="Seu Nome" required><br><br>
 
             <label for="sugestao">Sugestão:</label><br>
-            <textarea id="sugestao" name="Sugestao" rows="4" required></textarea><br><br>
+            <textarea id="sugestao" name="sugestao" rows="4" placeholder="Sua Sugestão Aqui!" required></textarea><br><br>
 
             <button type="submit">Enviar Sugestão</button>
-        </form>
-    </section>
         </form>
     </section>
     <footer>
@@ -45,6 +63,7 @@
         </div>
     </footer>
 
-    <script src="scripts.js"></script>
+    <script src="assets/js/sugestoes.js"></script>
 </body>
 </html>
+

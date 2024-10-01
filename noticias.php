@@ -29,7 +29,6 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -58,6 +57,7 @@ session_start();
         ?>
             <div class="noticia-info">
                 <h2><?php echo $item['titulo']; ?></h2>
+                <img src="<?php echo $item['img']; ?>" alt="">
                 <p><?php echo $item['conteudo']; ?></p>
                 <br>
                 <br>

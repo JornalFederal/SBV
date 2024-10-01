@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-// Verifica se o usuário está logado
-if (!isset($_SESSION['logado'])) {
-    header('Location: login.php'); // Redireciona para login.php se não estiver logado
+if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
+    // Salva a URL atual para redirecionar após o login
+    $_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
+    header("Location: login.php");
     exit();
 }
 
@@ -21,17 +22,21 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Deleta a notícia se o ID for passado via GET
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']); // Sanitiza o valor do ID para garantir que seja um número inteiro
+// Deleta múltiplas notícias
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ids'])) {
+    // Verifica se algum ID foi selecionado
+    $ids = $_POST['ids']; // Recupera os IDs das notícias selecionadas
 
-    // Consulta para deletar a notícia
-    $sql = "DELETE FROM tb_jornal WHERE id=$id";
+    // Converte os IDs para uma lista separada por vírgula para usar na consulta SQL
+    $idList = implode(",", array_map('intval', $ids));
+
+    // Consulta SQL para deletar as notícias selecionadas
+    $sql = "DELETE FROM tb_jornal WHERE id IN ($idList)";
 
     if ($conn->query($sql) === TRUE) {
-        $mensagem = "Notícia deletada com sucesso!";
+        $mensagem = "Notícias deletadas com sucesso!";
     } else {
-        $mensagem = "Erro ao deletar notícia: " . $conn->error;
+        $mensagem = "Erro ao deletar notícias: " . $conn->error;
     }
 }
 
@@ -41,6 +46,7 @@ $result = $conn->query($sql);
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -53,54 +59,66 @@ $conn->close();
 <body>
     <header>
         <div class="container">
-            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
+            <h1>Área Restrita - Jornal Federal</h1>
             <nav>
-                    <ul>
-                        <li><a href="index.php">Início</a></li>
-                        <li><a href="todas-noticias.php">Notícias</a></li>
-                        <li><a href="videos.php">Vídeos</a></li>
-                        <li><a href="sobre.php">Sobre</a></li>
-                        <li><a href="sugestoes.php">Sugestões</a></li>
-                    </ul>
+                <ul>
+                    <li><a href="../index.php">Site Principal</a></li>
+                    <li><a href="adicionar_noticia.php">Adicionar Notícias</a></li>
+                    <li><a href="admin_sugestoes.php">Ver Sugestões</a></li>
+                    <li><a href="admin_eventos.php">Editar Eventos</a></li>
+                    <li><a href="logout.php">Logout</a></li>
+                </ul>
             </nav>
         </div>
     </header>
-<body>
+
     <h2>Lista de Notícias</h2>
 
     <?php if (isset($mensagem)): ?>
-        <p><?php echo $mensagem; ?></p>
+        <p class="center"><?php echo $mensagem; ?></p>
     <?php endif; ?>
 
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Data</th>
-            <th>Ações</th>
-        </tr>
-        <?php if ($result->num_rows > 0): ?>
-            <?php while($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo $row["id"]; ?></td>
-                    <td><?php echo $row["titulo"]; ?></td>
-                    <td><?php echo $row["desc"]; ?></td>
-                    <td><?php echo $row["data_cad"]; ?></td>
-                    <td>
-                        <a href="deletar_noticia.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Tem certeza que deseja deletar esta notícia?');">
-                            Deletar
-                        </a>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        <?php else: ?>
+    <form method="POST" action="deletar_noticia.php">
+        <table border="1">
             <tr>
-                <td colspan="5">Nenhuma notícia encontrada.</td>
+                <th>Selecionar</th> <!-- Nova coluna para checkbox -->
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Ações</th>
             </tr>
-        <?php endif; ?>
-    </table>
+            <?php if ($result->num_rows > 0): ?>
+                <?php while($row = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><input type="checkbox" name="ids[]" value="<?php echo $row['id']; ?>"></td> <!-- Checkbox para selecionar -->
+                        <td><?php echo $row["id"]; ?></td>
+                        <td><?php echo $row["titulo"]; ?></td>
+                        <td><?php echo $row["desc"]; ?></td>
+                        <td><?php echo $row["data_cad"]; ?></td>
+                        <td>
+                            <a href="deletar_noticia.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Tem certeza que deseja deletar esta notícia?');">
+                                Deletar Individualmente
+                            </a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6">Nenhuma notícia encontrada.</td>
+                </tr>
+            <?php endif; ?>
+        </table>
 
-    <p><a href="adicionar_noticia.php">Adicionar Nova Notícia</a> | <a href="logout.php">Sair</a></p>
+        <!-- Botão para deletar múltiplas notícias -->
+        <button type="submit" onclick="return confirm('Tem certeza que deseja deletar as notícias selecionadas?');">Deletar Selecionadas</button>
+    </form>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </body>
 </html>
+

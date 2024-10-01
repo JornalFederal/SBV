@@ -33,7 +33,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verifica se a senha está correta
         if (password_verify($senha, $row['senha'])) {
             $_SESSION['logado'] = true;
-            header('Location: adicionar_noticia.php'); // Redireciona para adicionar notícias
+
+            // Redireciona para a página de origem se existir
+            if (isset($_SESSION['redirect'])) {
+                $redirect_url = $_SESSION['redirect'];
+                unset($_SESSION['redirect']); // Remove a página de origem da sessão
+                header("Location: $redirect_url");  // Redireciona para a página salva
+            } else {
+                // Redireciona para adicionar notícias por padrão
+                header('Location: adicionar_noticia.php');
+            }
             exit();
         } else {
             $erro = "Senha incorreta!";
@@ -59,23 +68,27 @@ $conn->close();
 <body>
     <header>
         <div class="container">
-            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1><br>
+        <h1>Área Restrita - Jornal Federal</h1>
         </div>
     </header>
-    <h3 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Login</h3>
-
-    <?php if (isset($erro)): ?>
-        <p style="color: red;"><?php echo $erro; ?></p>
-    <?php endif; ?>
-
-    <form method="POST" action="login.php">
-        <label for="usuario">Usuário:</label>
-        <input type="text" name="usuario" required><br><br>
-
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha" required><br><br>
-
-        <button type="submit">Entrar</button>
-    </form>
+    
+    <div class="container">
+        <h3 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Login</h3>
+        <?php if (isset($erro)): ?>
+            <p style="color: red;"><?php echo $erro; ?></p>
+        <?php endif; ?>
+        <form method="POST" action="login.php">
+            <label for="usuario">Usuário:</label>
+            <input type="text" name="usuario" required><br><br>
+            <label for="senha">Senha:</label>
+            <input type="password" name="senha" required><br><br>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </body>
 </html>
