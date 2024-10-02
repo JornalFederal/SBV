@@ -2,7 +2,6 @@
 session_start();
 
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
-    // Salva a URL atual para redirecionar após o login
     $_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
     header("Location: login.php");
     exit();
@@ -14,31 +13,80 @@ $username = "root";
 $password = "";
 $dbname = "db_jornal";
 
-// Criando a conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica a conexão
 if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Verifica se o formulário foi enviado
+$mensagem = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST['titulo'];
     $desc = $_POST['desc'];
-    $img = $_POST['img'];
     $midia = $_POST['midia'];
-    $video_duration = $_POST['video_duration']; // Obtendo a duração do vídeo
+    if (empty($midia)) {
+        $midia = NULL;
+    }
+    $video_duration = $_POST['video_duration'];
     $conteudo = $_POST['conteudo'];
     $data_cad = $_POST['data_cad'];
 
-    // Inserir a notícia no banco de dados
-    $sql = "INSERT INTO tb_jornal (titulo, `desc`, img, midia, video_duration, data_cad, conteudo) VALUES ('$titulo', '$desc', '$img', '$midia', '$video_duration', '$data_cad', '$conteudo')";
+    // Diretório de upload de imagem
+    $target_dir = "uploads/";
+    $imageFileType = strtolower(pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION));
+    $target_file = $target_dir . uniqid() . "." . $imageFileType;
 
-    if ($conn->query($sql) === TRUE) {
+    // Verifica se o diretório existe, se não, cria
+    if (!is_dir($target_dir)) {
+        if (mkdir($target_dir, 0755, true)) {
+            echo "Pasta 'uploads/' criada com sucesso.<br>";
+        } else {
+            echo "Falha ao criar a pasta 'uploads/'.<br>";
+        }
+    }
+
+    // Verifica se o arquivo de imagem foi enviado
+    if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+        $check = getimagesize($_FILES["img"]["tmp_name"]);
+        if ($check !== false) {
+            // Verifica o tipo do arquivo
+            if (in_array($imageFileType, ["jpg", "jpeg", "png", "gif"])) {
+                // Debug: Mostra os caminhos
+                echo "Caminho temporário: " . $_FILES["img"]["tmp_name"] . "<br>";
+                echo "Caminho de destino: " . $target_file . "<br>";
+
+                // Tenta mover o arquivo para a pasta de uploads
+                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                    $img = $target_file; // Caminho do arquivo salvo
+                    echo "Arquivo movido com sucesso para " . $target_file . "<br>";
+                } else {
+                    $mensagem = "Desculpe, houve um erro ao enviar sua imagem.";
+                    echo "Erro ao mover o arquivo de " . $_FILES["img"]["tmp_name"] . " para " . $target_file . "<br>";
+                }
+            } else {
+                $mensagem = "Apenas arquivos JPG, JPEG, PNG e GIF são permitidos.";
+            }
+        } else {
+            $mensagem = "O arquivo não é uma imagem.";
+        }
+    } else {
+        // Exibe erro se o arquivo não foi enviado corretamente
+        echo "Erro no upload da imagem: " . $_FILES['img']['error'] . "<br>";
+        $img = NULL; // Caso nenhuma imagem seja enviada
+    }
+
+    // Inserir a notícia no banco de dados usando consulta preparada
+    $sql = "INSERT INTO tb_jornal (titulo, `desc`, img, midia, video_duration, data_cad, conteudo) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssss", $titulo, $desc, $img, $midia, $video_duration, $data_cad, $conteudo);
+
+    if ($stmt->execute()) {
         $mensagem = "Notícia adicionada com sucesso!";
     } else {
-        $mensagem = "Erro ao adicionar notícia: " . $conn->error;
+        $mensagem = "Erro ao adicionar notícia: " . $stmt->error;
     }
 }
 
@@ -72,11 +120,11 @@ $conn->close();
     <div class="container">
         <h2 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Adicionar Notícia</h2>
 
-        <?php if (isset($mensagem)): ?>
+        <?php if (!empty($mensagem)): ?>
             <h2 style="text-align: center;"><?php echo $mensagem; ?></h2>
         <?php endif; ?>
 
-        <form method="POST" action="adicionar_noticia.php">
+        <form method="POST" action="adicionar_noticia.php" enctype="multipart/form-data">
             <label for="titulo">Título:</label><br>
             <input type="text" name="titulo" required><br><br>
 
@@ -86,14 +134,14 @@ $conn->close();
             <label for="data_cad">Data:</label><br>
             <input type="date" name="data_cad" required><br><br>
 
-            <label for="img">Imagem (URL ou caminho):</label><br>
-            <input type="text" name="img"><br><br>
+            <label for="img">Imagem (upload):</label><br>
+            <input type="file" name="img" accept="image/*" required><br><br>
 
             <label for="midia">Mídia (URL ou caminho):</label><br>
             <input type="text" name="midia"><br><br>
 
             <label for="video_duration">Duração do Vídeo:</label><br>
-            <input type="text" name="video_duration" placeholder="Ex: 3 min"><br><br> <!-- Campo para duração do vídeo -->
+            <input type="text" name="video_duration" placeholder="Ex: 3 min"><br><br>
 
             <label for="conteudo">Conteúdo:</label><br>
             <textarea name="conteudo" rows="5" cols="30"></textarea><br><br>

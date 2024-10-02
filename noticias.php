@@ -1,31 +1,22 @@
 <?php
-
 session_start();
 
-  try {
-   
+try {
     include "backend/conexao.php";
 
     $id = $_GET['id'];
 
     // comando que sera executado no banco de dados
     $sql = "SELECT * FROM tb_jornal WHERE id=:id";
- 
-    $stmt = $conn->prepare($sql);
 
-    $stmt->bindParam(':id',$id);
- 
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':id', $id);
     $stmt->execute();
 
     $menu = $stmt->fetchAll((PDO::FETCH_ASSOC));
-
-   
-   
- 
-  }catch(PDOException $err){
-    echo "Erro".$err->getMessage();
-  }
- 
+} catch (PDOException $err) {
+    echo "Erro" . $err->getMessage();
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +29,7 @@ session_start();
 </head>
 <body>
     <header>
-     <div class="container">
+        <div class="container">
             <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
             <nav>
                 <ul>
@@ -53,7 +44,7 @@ session_start();
     </header>
     <div class="noticia-container">
     <?php
-        foreach($menu as $item){
+        foreach ($menu as $item) {
         ?>
             <div class="noticia-info">
                 <h2><?php echo $item['titulo']; ?></h2>
@@ -64,7 +55,8 @@ session_start();
                 <div class="center"><a href="index.php"><button class="voltar-button">Voltar</button></a></div>
             </div>
         <?php
-    };?>
+        };
+        ?>
     </div>
     <footer>
         <div class="container">

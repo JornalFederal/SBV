@@ -328,7 +328,14 @@ button:hover {
     border-radius: 8px;
 }
 
-/* Estilos para a área de informações da notícia */
 .noticia-info {
-    text-align: left;
+    text-align: left; /* Centraliza o conteúdo da div */
+}
+.noticia-info img {
+    max-width: 100%; /* Limita a largura da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Necessário para centralizar com margin */
+    margin-left: auto; /* Margens automáticas para centralização */
+    margin-right: auto; /* Margens automáticas para centralização */
+    margin-bottom: 30px;
 }

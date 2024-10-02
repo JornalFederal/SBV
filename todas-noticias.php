@@ -46,7 +46,7 @@ try {
         </div>
     </header>
     <div id="noticias" class="container">
-         <h2>Todas as Notícias</h2><br>
+         <h2>Todas as Notícias</h2>
     <?php
                 foreach($menu as $item){
             $dataFormatada = date('d/m/Y', strtotime($item['data_cad']))
