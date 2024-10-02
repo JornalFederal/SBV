@@ -12,7 +12,6 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "db_jornal";
-
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
@@ -22,27 +21,24 @@ if ($conn->connect_error) {
 $mensagem = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = $_POST['titulo'];
-    $desc = $_POST['desc'];
-    $midia = $_POST['midia'];
-    if (empty($midia)) {
-        $midia = NULL;
-    }
-    $video_duration = $_POST['video_duration'];
-    $conteudo = $_POST['conteudo'];
-    $data_cad = $_POST['data_cad'];
+    $titulo = $_POST['titulo'] ?? NULL; // Campo obrigatório
+    $desc = $_POST['desc'] ?? NULL; // Campo obrigatório
+    $midia = !empty($_POST['midia']) ? $_POST['midia'] : NULL; // Permite que midia seja NULL
+    $video_duration = !empty($_POST['video_duration']) ? $_POST['video_duration'] : NULL; // Permite que video_duration seja NULL
+    $conteudo = !empty($_POST['conteudo']) ? $_POST['conteudo'] : NULL; // Permite que conteudo seja NULL
+    $data_cad = $_POST['data_cad'] ?? NULL; // Campo obrigatório
 
     // Diretório de upload de imagem
-    $target_dir = "uploads/";
+    $target_dir = "../uploads/"; // Corrigido o caminho para uploads
     $imageFileType = strtolower(pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION));
     $target_file = $target_dir . uniqid() . "." . $imageFileType;
 
     // Verifica se o diretório existe, se não, cria
     if (!is_dir($target_dir)) {
         if (mkdir($target_dir, 0755, true)) {
-            echo "Pasta 'uploads/' criada com sucesso.<br>";
+            echo "Pasta 'uploads/' criada com sucesso.";
         } else {
-            echo "Falha ao criar a pasta 'uploads/'.<br>";
+            echo "Falha ao criar a pasta 'uploads/'.";
         }
     }
 
@@ -51,18 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $check = getimagesize($_FILES["img"]["tmp_name"]);
         if ($check !== false) {
             // Verifica o tipo do arquivo
-            if (in_array($imageFileType, ["jpg", "jpeg", "png", "gif"])) {
-                // Debug: Mostra os caminhos
-                echo "Caminho temporário: " . $_FILES["img"]["tmp_name"] . "<br>";
-                echo "Caminho de destino: " . $target_file . "<br>";
-
+            if (in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
                 // Tenta mover o arquivo para a pasta de uploads
                 if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
-                    $img = $target_file; // Caminho do arquivo salvo
-                    echo "Arquivo movido com sucesso para " . $target_file . "<br>";
+                    $img = "./uploads/" . basename($target_file); // Caminho relativo a ser armazenado no banco de dados
                 } else {
                     $mensagem = "Desculpe, houve um erro ao enviar sua imagem.";
-                    echo "Erro ao mover o arquivo de " . $_FILES["img"]["tmp_name"] . " para " . $target_file . "<br>";
                 }
             } else {
                 $mensagem = "Apenas arquivos JPG, JPEG, PNG e GIF são permitidos.";
@@ -71,22 +61,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mensagem = "O arquivo não é uma imagem.";
         }
     } else {
-        // Exibe erro se o arquivo não foi enviado corretamente
-        echo "Erro no upload da imagem: " . $_FILES['img']['error'] . "<br>";
         $img = NULL; // Caso nenhuma imagem seja enviada
     }
 
-    // Inserir a notícia no banco de dados usando consulta preparada
+    // Inserir a notícia no banco de dados
     $sql = "INSERT INTO tb_jornal (titulo, `desc`, img, midia, video_duration, data_cad, conteudo) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+            VALUES ('$titulo', '$desc', '$img', " . ($midia ? "'$midia'" : "NULL") . ", " . ($video_duration ? "'$video_duration'" : "NULL") . ", '$data_cad', " . ($conteudo ? "'$conteudo'" : "NULL") . ")";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssss", $titulo, $desc, $img, $midia, $video_duration, $data_cad, $conteudo);
-
-    if ($stmt->execute()) {
+    if ($conn->query($sql) === TRUE) {
         $mensagem = "Notícia adicionada com sucesso!";
     } else {
-        $mensagem = "Erro ao adicionar notícia: " . $stmt->error;
+        $mensagem = "Erro ao adicionar notícia: " . $conn->error;
     }
 }
 
@@ -135,7 +120,7 @@ $conn->close();
             <input type="date" name="data_cad" required><br><br>
 
             <label for="img">Imagem (upload):</label><br>
-            <input type="file" name="img" accept="image/*" required><br><br>
+            <input type="file" name="img" accept="image/*"><br><br>
 
             <label for="midia">Mídia (URL ou caminho):</label><br>
             <input type="text" name="midia"><br><br>
