@@ -28,7 +28,7 @@ try {
     <link rel="stylesheet" href="assets/css/modal.css">
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
             <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
             <nav>
@@ -42,6 +42,7 @@ try {
             </nav>
         </div>
     </header>
+
     <div class="noticia-container">
     <?php
         foreach ($menu as $item) {
@@ -58,10 +59,13 @@ try {
         };
         ?>
     </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <script src="assets/js/scroll.js"></script>
 </body>
 </html>

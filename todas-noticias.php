@@ -31,9 +31,9 @@ try {
     <link rel="stylesheet" href="assets/css/modal.css">
 </head>
 <body>
-    <header>
-        <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
+    <header id="header">
         <div class="container">
+            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
             <nav>
                 <ul>
                     <li><a href="index.php">Início</a></li>
@@ -68,5 +68,6 @@ try {
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script src="assets/js/scroll.js"></script>
 </body>
 </html>

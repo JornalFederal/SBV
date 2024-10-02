@@ -32,6 +32,23 @@ try {
         }
     }
 
+    // Verificar se o formulário de deleção de evento foi enviado
+    if (isset($_POST['delete_evento'])) {
+        $id_evento = $_POST['id_evento'];
+
+        // Deletar o evento da tabela
+        $sql_delete = "DELETE FROM tb_eventos WHERE id = :id_evento";
+        $stmt_delete = $conn->prepare($sql_delete);
+        $stmt_delete->bindParam(':id_evento', $id_evento);
+
+        if ($stmt_delete->execute()) {
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit();
+        } else {
+            echo "Erro ao deletar evento.";
+        }
+    }
+
     // Selecionar todos os eventos
     $sql = "SELECT * FROM tb_eventos ORDER BY data_evento ASC";
     $stmt = $conn->prepare($sql);
@@ -69,30 +86,35 @@ try {
 
     <section class="container">
         <h2>Adicionar Novo Evento</h2>
-        <form method="POST" action="">
+        <form method="POST" action="" class="forms">
             <label for="evento">Nome do Evento:</label>
             <input type="text" name="evento" id="evento" required>
             <label for="data_evento">Data do Evento:</label>
             <input type="date" name="data_evento" id="data_evento" required>
             <button type="submit" name="add_evento">Adicionar Evento</button>
         </form>
-
+    </section>
 
     <section class="container">
-    <h2>Eventos Cadastrados</h2>
+        <h2>Eventos Cadastrados</h2>
         <?php if (!empty($eventos)): ?>
             <ul>
                 <?php foreach ($eventos as $evento): ?>
                     <li>
                         <strong><?php echo htmlspecialchars($evento['evento'] ?? 'Evento sem nome'); ?></strong><br>
                         <?php echo date('d/m/Y', strtotime($evento['data_evento'] ?? '')); ?><br>
+                        
+                        <!-- Formulário para deletar o evento -->
+                        <form method="POST" action="" style="display:inline;">
+                            <input type="hidden" name="id_evento" value="<?php echo $evento['id']; ?>">
+                            <button type="submit" name="delete_evento" onclick="return confirm('Tem certeza que deseja deletar este evento?');">Deletar</button>
+                        </form>
                     </li>
                 <?php endforeach; ?>
             </ul>
         <?php else: ?>
             <p>Nenhum evento cadastrado.</p>
         <?php endif; ?>
-</section>
     </section>
 
     <footer>

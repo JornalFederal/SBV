@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/modal.css">
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
             <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
             <nav>
@@ -42,7 +42,7 @@
         </ul>
 
         <h3 class="sobretitle">Contato</h3>
-        <p>Para sugestões, colaborações ou dúvidas, entre em contato conosco pelo e-mail: <a id="email" href="mailto:jornalfederal.ifsp.sbv@gmail.com">jornalfederal.ifsp.sbv@gmail.com</a></p><br><br>
+        <p>Para colaborações ou dúvidas, entre em contato conosco pelo e-mail: <a id="email" href="mailto:jornalfederal.ifsp.sbv@gmail.com">jornalfederal.ifsp.sbv@gmail.com</a></p><br><br>
         <div class="center"><a href="index.html" class="button">Voltar para Início</a></div>
     </section>
     <footer>
@@ -50,6 +50,6 @@
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
-    <script src="scripts.js"></script>
+    <script src="assets/js/scroll.js"></script>
 </body>
 </html>

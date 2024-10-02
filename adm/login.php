@@ -85,7 +85,7 @@ $conn->close();
             <button type="submit">Entrar</button>
         </form>
     </div>
-    <footer>
+    <footer class="login">
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>

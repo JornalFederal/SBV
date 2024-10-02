@@ -9,6 +9,7 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
+    padding-top: 150px;
 }
 .sobre{
     
@@ -20,6 +21,16 @@ header {
     color: #fff;
     padding: 14px 0 0 0;
     text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #fff;
+    transition: top 0.3s;
+    z-index: 1000;
+}
+
+.header-hidden {
+    top: -200px;
 }
 
 header h1 {
@@ -315,6 +326,15 @@ button:hover {
     
     .news-content p {
         font-size: 16px;
+    }
+    body {
+        padding-top: 50%; /* Evita que o conteúdo fique oculto pelo header fixo */
+    }
+    .header-hidden {
+        top: -150px;
+    }
+    header h1{
+        font-size: 20px;
     }
 }
 

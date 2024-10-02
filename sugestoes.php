@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="assets/css/modal.css">
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
             <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
             <nav>
@@ -64,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </footer>
 
     <script src="assets/js/sugestoes.js"></script>
+    <script src="assets/js/scroll.js"></script>
 </body>
 </html>
 

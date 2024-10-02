@@ -26,7 +26,7 @@ try {
     <script src="assets/js/modal.js" defer></script> <!-- Incluindo o arquivo JS -->
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
             <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
             <nav>
@@ -76,5 +76,6 @@ try {
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script src="assets/js/scroll.js"></script>
 </body>
 </html>

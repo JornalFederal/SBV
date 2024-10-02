@@ -9,6 +9,7 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
+    min-height: 600px;
 }
 
 header {
@@ -57,7 +58,7 @@ h2 {
     margin: 20px 0;
 }
 
-form {
+.forms {
     background-color: #f4f4f4;
     padding: 20px;
     border-radius: 8px;
@@ -152,6 +153,7 @@ td a:hover {
 }
 
 footer {
+    bottom: 0px;
     width: 100%;
     background-color: #195128;
     background-image: radial-gradient(ellipse at center, #0e641e 1%, #00510f 100%);
@@ -159,9 +161,9 @@ footer {
     padding: 14px 0;
     position: relative;
     text-align: center;
-    left: 0;
-    right: 0;
-    bottom: 0;
+}
+.login{
+    position: absolute;
 }
 
 footer p {

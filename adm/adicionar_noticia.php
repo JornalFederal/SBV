@@ -133,8 +133,6 @@ $conn->close();
 
             <button type="submit">Adicionar Notícia</button>
         </form>
-        
-        <div class="center"><a href="logout.php">Sair</a></div>
     </div>
     
     <footer>
