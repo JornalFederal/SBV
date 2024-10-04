@@ -66,7 +66,7 @@ $conn->close();
     <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
         <h1>Área Restrita - Jornal Federal</h1>
         </div>
@@ -85,7 +85,7 @@ $conn->close();
             <button type="submit">Entrar</button>
         </form>
     </div>
-    <footer class="login">
+    <footer id="footer">
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>

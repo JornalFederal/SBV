@@ -47,8 +47,11 @@ try {
             <?php foreach ($noticiasComVideos as $noticia): ?>
                 <div class="news-item">
                     <div class="news-video">
-                        <!-- Miniatura do vídeo (use a imagem armazenada em 'img') -->
-                        <img src="<?php echo $noticia['img'] ?: 'assets/img/placeholder.png'; ?>" alt="Imagem do vídeo" class="thumbnail" onclick="abrirModal('<?php echo $noticia['midia']; ?>', '<?php echo htmlspecialchars($noticia['titulo']); ?>')">
+                        <!-- Miniatura do vídeo -->
+                        <img src="<?php echo $noticia['img'] ?: 'assets/img/placeholder.png'; ?>" alt="Imagem do vídeo" class="thumbnail" 
+                            onclick="abrirModal('<?php echo $noticia['midia']; ?>', 
+                                                '<?php echo htmlspecialchars($noticia['titulo']); ?>', 
+                                                `<?php echo htmlspecialchars($noticia['conteudo']); ?>`)">
                     </div>
                     <div class="news-content">
                         <h2><?php echo htmlspecialchars($noticia['titulo']); ?></h2>
@@ -62,14 +65,18 @@ try {
         <?php endif; ?>
     </section>
 
-    <!-- Modal para exibição do vídeo -->
-    <div id="videoModal" class="modal">
-        <div class="modal-content">
-            <h2 class="news-video-title" id="modalTitulo"></h2>
-            <span class="close" id="closeModal">&times;</span>
-            <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
-        </div>
+    <!-- Overlay para escurecer a página de fundo -->
+<div id="overlay" class="overlay"></div>
+
+<!-- Modal para exibição do vídeo -->
+<div id="videoModal" class="modal">
+    <div class="modal-content">
+        <h2 class="news-video-title" id="modalTitulo"></h2>
+        <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+        <p id="modalConteudo"></p> <!-- Parágrafo para o conteúdo -->
+        <p class="close" id="closeModal">Sair</p>
     </div>
+</div>
 
     <footer>
         <div class="container">

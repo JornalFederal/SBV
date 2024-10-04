@@ -11,6 +11,11 @@ body {
     color: #333;
     padding-top: 150px;
 }
+
+body.modal-open {
+    overflow: hidden; /* Impede a rolagem do corpo */
+}
+
 .sobre{
     
     color: #00420c;
@@ -260,24 +265,25 @@ button:hover {
 
 /* Modal */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
+    display: none; /* Oculta o modal por padrão */
+    position: fixed; /* Fica fixo na tela */
+    z-index: 1000; /* Acima de outros elementos */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Permite rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
 }
 
 .modal-content {
-    position: relative;
-    margin: 5% auto;
-    width: 80%;
-    max-width: 700px;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
+    background-color: #fff; /* Fundo do conteúdo */
+    margin: 2% auto; /* Centraliza o conteúdo */
+    padding: 20px; /* Espaçamento interno */
+    border: 1px solid #888; /* Borda do conteúdo */
+    width: 80%; /* Largura do conteúdo do modal */
+    max-height: 90%; /* Limite máximo de altura */
+    overflow-y: auto; /* Permite rolagem vertical */
 }
 
 .modal-content iframe {
@@ -286,22 +292,38 @@ button:hover {
 }
 
 .close {
-    position: absolute;
-    top: -10px;
-    right: 2px;
-    font-size: 28px;
+    position: relative;
+    margin: auto;
+    font-size: 25px;
     color: #00420c;
     cursor: pointer;
+    text-align: center;
 }
-
 .close:hover {
     text-decoration: underline;
+    color: #12722c;
 }
 
+/* Estilo do overlay */
+.overlay {
+    display: none; /* Esconder o overlay por padrão */
+    position: fixed; /* Fica fixo na tela */
+    z-index: 999; /* Abaixo do modal, mas acima do conteúdo da página */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+}
+
+.modal-open {
+    overflow: hidden; /* Impede a rolagem da página de fundo */
+}
 .news-video-title{
     text-align: center;
     color: #00510f;
     font-weight: bold;
+    margin: 0;
 }
 
 @media (max-width: 768px) {

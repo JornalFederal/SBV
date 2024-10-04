@@ -22,7 +22,23 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Deleta múltiplas notícias
+// Deletar notícia individualmente
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']); // Garante que o ID seja um número inteiro
+    $sql = "DELETE FROM tb_jornal WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        $mensagem = "Notícia deletada com sucesso!";
+    } else {
+        $mensagem = "Erro ao deletar notícia: " . $conn->error;
+    }
+
+    $stmt->close();
+}
+
+// Deletar múltiplas notícias
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ids'])) {
     // Verifica se algum ID foi selecionado
     $ids = $_POST['ids']; // Recupera os IDs das notícias selecionadas
@@ -46,8 +62,6 @@ $result = $conn->query($sql);
 
 $conn->close();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -78,7 +92,7 @@ $conn->close();
         <p class="center"><?php echo $mensagem; ?></p>
     <?php endif; ?>
 
-    <form method="POST" action="deletar_noticia.php">
+    <form class="forms" method="POST" action="deletar_noticia.php">
         <table border="1">
             <tr>
                 <th>Selecionar</th> <!-- Nova coluna para checkbox -->

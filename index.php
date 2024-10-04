@@ -68,9 +68,9 @@ try {
                 <div class="news-video">
                     <img src="<?php echo $noticiaComVideo['img'] ?: 'assets/img/placeholder.png'; ?>" 
                          alt="Imagem do vídeo" class="thumbnail" 
-                         onclick="abrirModal('<?php echo $noticiaComVideo['midia']; ?>', '<?php echo htmlspecialchars($noticiaComVideo['titulo']); ?>')"
+                         onclick="abrirModal('<?php echo $noticiaComVideo['midia']; ?>', '<?php echo htmlspecialchars($noticiaComVideo['titulo']); ?>', `<?php echo htmlspecialchars($noticiaComVideo['conteudo']); ?>`)"
                          onerror="this.src='assets/img/jorge.png';">
-                    <span class="video-duration"><?php echo htmlspecialchars($noticiaComVideo['video_duration']); ?></span> <!-- Modificado para exibir a duração do vídeo -->
+                    <span class="video-duration"><?php echo htmlspecialchars($noticiaComVideo['video_duration']); ?></span>
                 </div>
                 <div class="news-content">
                     <h2><?php echo htmlspecialchars($noticiaComVideo['titulo']); ?></h2>
@@ -84,12 +84,13 @@ try {
         
         <!-- Modal para exibição do vídeo -->
         <div id="videoModal" class="modal">
-            <div class="modal-content">
-                <h2 class="news-video-title" id="modalTitulo"></h2>
-                <span class="close" id="closeModal">&times;</span>
-                <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
+    <div class="modal-content">
+        <h2 class="news-video-title" id="modalTitulo"></h2>
+        <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+        <p id="modalConteudo"></p> <!-- Parágrafo para o conteúdo -->
+        <p class="close" id="closeModal">Sair</p>
+    </div>
+</div>
     </section>
 
     <section id="eventos" class="container">
