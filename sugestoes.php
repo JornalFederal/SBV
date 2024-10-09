@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li><a href="videos.php">Vídeos</a></li>
                     <li><a href="sobre.php">Sobre</a></li>
                     <li><a href="sugestoes.php">Sugestões</a></li>
+                    <li><a href="jornal.php">PDF's</a></li>
                 </ul>
             </nav>
         </div>

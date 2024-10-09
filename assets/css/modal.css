@@ -5,6 +5,7 @@
 }
 
 body {
+    min-height: 100vh;
     font-family: Arial, serif, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
@@ -85,6 +86,11 @@ h3 a:any-link {
     cursor: pointer;
     text-decoration: none;
 }
+
+main {
+    flex: 1;
+}
+
 #email{
     text-decoration: none;
     color:black;
@@ -118,6 +124,7 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
+    margin-top: auto;
 }
 
 footer p {
@@ -353,7 +360,7 @@ button:hover {
         padding-top: 50%; /* Evita que o conteúdo fique oculto pelo header fixo */
     }
     .header-hidden {
-        top: -150px;
+        top: -175px;
     }
     header h1{
         font-size: 20px;
