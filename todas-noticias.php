@@ -5,14 +5,14 @@ session_start();
 try {
     include "backend/conexao.php";
 
-    // comando que sera executado no banco de dados
-    // Selecionar todas as notícias e ordenar por ID em ordem decrescente
+    // Selecionar todas as notícias onde "midia" é NULL e ordenar por ID em ordem decrescente
     $sql = "SELECT * FROM tb_jornal WHERE midia IS NULL ORDER BY id DESC";
  
     $stmt = $conn->prepare($sql);
  
     $stmt->execute();
 
+    // Pegar todas as notícias do banco de dados
     $menu = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch(PDOException $err) {
@@ -21,7 +21,6 @@ try {
 
 ?>
 
-<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -47,23 +46,33 @@ try {
         </div>
     </header>
     <div id="noticias" class="container">
-         <h2>Todas as Notícias</h2>
-    <?php
-                foreach($menu as $item){
-            $dataFormatada = date('d/m/Y', strtotime($item['data_cad']))
-            ?>
+        <h2>Todas as Notícias</h2>
+
+        <?php
+        // Verificar se há notícias
+        if (count($menu) > 0) {
+            // Se houver notícias, exibe elas
+            foreach($menu as $item){
+                $dataFormatada = date('d/m/Y', strtotime($item['data_cad']));
+        ?>
             <div class="noticia">
-            <a href="noticias.php?id=<?php echo $item['id']?>" class="">
-                <h2><?php echo $item['titulo']; ?></h2>
-            </a>
+                <a href="noticias.php?id=<?php echo $item['id']?>" class="">
+                    <h2><?php echo $item['titulo']; ?></h2>
+                </a>
                 <div>
                     <p class="descricao-noticias"><?php echo $item['desc']; ?></p>
                     <?php echo "<p class='data'>{$dataFormatada}</p>"; ?>
                 </div>
             </div>
-            <?php
-            };?>
+        <?php
+            }
+        } else {
+            // Se não houver notícias, exibe uma mensagem de aviso
+            echo "<p>Nenhuma notícia disponível no momento.</p>";
+        }
+        ?>
     </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>

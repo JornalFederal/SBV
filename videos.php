@@ -73,7 +73,7 @@ try {
 <div id="videoModal" class="modal">
     <div class="modal-content">
         <h2 class="news-video-title" id="modalTitulo"></h2>
-        <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+        <div class="video-container"><iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe></div>
         <p id="modalConteudo"></p> <!-- Parágrafo para o conteúdo -->
         <p class="close" id="closeModal">Sair</p>
     </div>
