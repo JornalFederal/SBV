@@ -65,19 +65,19 @@ try {
             </div>
         <?php endforeach; ?>
         <?php if ($noticiaComVideo): ?>
-            <div class="news-item">
-                <div class="news-video">
-                    <img src="<?php echo $noticiaComVideo['img'] ?: 'assets/img/placeholder.png'; ?>" 
-                         alt="Imagem do vídeo" class="thumbnail" 
-                         onclick="abrirModal('<?php echo $noticiaComVideo['midia']; ?>', '<?php echo htmlspecialchars($noticiaComVideo['titulo']); ?>', `<?php echo htmlspecialchars($noticiaComVideo['conteudo']); ?>`)"
-                         onerror="this.src='assets/img/jorge.png';">
-                    <span class="video-duration"><?php echo htmlspecialchars($noticiaComVideo['video_duration']); ?></span>
-                </div>
-                <div class="news-content">
-                    <h2><?php echo htmlspecialchars($noticiaComVideo['titulo']); ?></h2>
-                    <p><?php echo htmlspecialchars($noticiaComVideo['desc']); ?></p>
-                    <p class="data"><?php echo date('d/m/Y', strtotime($noticiaComVideo['data_cad'])); ?></p>
-                </div>
+            <div class="noticia" id="video">
+                    <div class="news-video">
+                        <img src="<?php echo $noticiaComVideo['img'] ?: 'assets/img/placeholder.png'; ?>"
+                             alt="Imagem do vídeo" class="thumbnail"
+                             onclick="abrirModal('<?php echo $noticiaComVideo['midia']; ?>', '<?php echo htmlspecialchars($noticiaComVideo['titulo']); ?>', `<?php echo htmlspecialchars($noticiaComVideo['conteudo']); ?>`)"
+                             onerror="this.src='assets/img/jorge.png';">
+                        <span class="video-duration"><?php echo htmlspecialchars($noticiaComVideo['video_duration']); ?></span>
+                    </div>
+                    <div class="news-content">
+                        <h2><?php echo htmlspecialchars($noticiaComVideo['titulo']); ?></h2>
+                        <p><?php echo htmlspecialchars($noticiaComVideo['desc']); ?></p>
+                        <p class="data"><?php echo date('d/m/Y', strtotime($noticiaComVideo['data_cad'])); ?></p>
+                    </div>
             </div>
         <?php else: ?>
             <p>Nenhuma notícia com vídeo disponível no momento.</p>

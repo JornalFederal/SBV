@@ -1,62 +1,40 @@
 <?php
 session_start();
 
-// Verificação de login
+// Verificar se o usuário está logado
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     $_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
     header("Location: login.php");
     exit();
 }
 
-try {
-    include "../backend/conexao.php";
+require_once("../backend/conexao.php");
 
-    // Verificar se o formulário de adição de evento foi enviado
-    if (isset($_POST['add_evento'])) {
-        $evento = $_POST['evento'];
-        $data_evento = $_POST['data_evento'];
-        $descricao = $_POST['descricao'];
+$mensagem = "";
 
-        // Inserir o novo evento na tabela
-        $sql_insert = "INSERT INTO tb_eventos (evento, data_evento, descricao) VALUES (:evento, :data_evento, :descricao)";
-        $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bindParam(':evento', $evento);
-        $stmt_insert->bindParam(':data_evento', $data_evento);
-        $stmt_insert->bindParam(':descricao', $descricao);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validação dos campos
+    $titulo = $_POST['titulo'] ?? NULL;
+    $data_evento = $_POST['data_evento'] ?? NULL;
+    $descricao = $_POST['descricao'] ?? NULL;
 
-        if ($stmt_insert->execute()) {
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
+    // Verificar se os campos obrigatórios estão preenchidos
+    if (!empty($titulo) && !empty($data_evento)) {
+        // Inserir no banco de dados
+        $stmt = $conn->prepare("INSERT INTO eventos (titulo, data_evento, descricao) VALUES (:titulo, :data_evento, :descricao)");
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':data_evento', $data_evento);
+        $stmt->bindParam(':descricao', $descricao);
+
+        if ($stmt->execute()) {
+            $mensagem = "Evento adicionado com sucesso!";
         } else {
-            echo "Erro ao adicionar evento.";
+            $mensagem = "Erro ao adicionar o evento.";
         }
+    } else {
+        // Mensagem de erro caso algum campo esteja vazio
+        $mensagem = "Preencha todos os campos obrigatórios.";
     }
-
-    // Verificar se o formulário de deleção de evento foi enviado
-    if (isset($_POST['delete_evento'])) {
-        $id_evento = $_POST['id_evento'];
-
-        // Deletar o evento da tabela
-        $sql_delete = "DELETE FROM tb_eventos WHERE id = :id_evento";
-        $stmt_delete = $conn->prepare($sql_delete);
-        $stmt_delete->bindParam(':id_evento', $id_evento);
-
-        if ($stmt_delete->execute()) {
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
-        } else {
-            echo "Erro ao deletar evento.";
-        }
-    }
-
-    // Selecionar todos os eventos
-    $sql = "SELECT * FROM tb_eventos ORDER BY data_evento ASC";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    echo "Erro na consulta: " . $e->getMessage();
 }
 ?>
 

@@ -1,14 +1,17 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+
 }
 
-body {
+body{
     font-family: Arial, serif, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -96,7 +99,8 @@ button:hover {
 
 .container {
     width: 80%;
-    margin: 10px auto;
+    flex: 1 0 auto;
+    margin: auto;
 }
 .center{
     text-align: center;
@@ -152,13 +156,12 @@ td a:hover {
 }
 
 footer {
-    bottom: 0px;
     width: 100%;
     background-color: #195128;
     background-image: radial-gradient(ellipse at center, #0e641e 1%, #00510f 100%);
     color: #fff;
     padding: 14px 0;
-    position: relative;
+    flex-shrink: 0;
     text-align: center;
     margin-top: 15px;
 }

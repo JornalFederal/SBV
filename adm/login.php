@@ -72,19 +72,21 @@ $conn->close();
         </div>
     </header>
     
-    <div class="container">
-        <h3 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Login</h3>
-        <?php if (isset($erro)): ?>
-            <p style="color: red;"><?php echo $erro; ?></p>
-        <?php endif; ?>
-        <form method="POST" action="login.php">
-            <label for="usuario">Usuário:</label>
-            <input type="text" name="usuario" required><br><br>
-            <label for="senha">Senha:</label>
-            <input type="password" name="senha" required><br><br>
-            <button type="submit">Entrar</button>
-        </form>
-    </div>
+    <section class="container">
+        <div>
+            <h3 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Login</h3>
+            <?php if (isset($erro)): ?>
+                <p style="color: red;"><?php echo $erro; ?></p>
+            <?php endif; ?>
+            <form method="POST" action="login.php">
+                <label for="usuario">Usuário:</label>
+                <input type="text" name="usuario" required><br><br>
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" required><br><br>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </section>
     <footer id="footer">
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>

@@ -46,19 +46,19 @@ try {
 
         <?php if (!empty($noticiasComVideos)): ?>
             <?php foreach ($noticiasComVideos as $noticia): ?>
-                <div class="news-item">
-                    <div class="news-video">
-                        <!-- Miniatura do vídeo -->
-                        <img src="<?php echo $noticia['img'] ?: 'assets/img/placeholder.png'; ?>" alt="Imagem do vídeo" class="thumbnail" 
-                            onclick="abrirModal('<?php echo $noticia['midia']; ?>', 
-                                                '<?php echo htmlspecialchars($noticia['titulo']); ?>', 
-                                                `<?php echo htmlspecialchars($noticia['conteudo']); ?>`)">
-                    </div>
-                    <div class="news-content">
-                        <h2><?php echo htmlspecialchars($noticia['titulo']); ?></h2>
-                        <p><?php echo htmlspecialchars($noticia['desc']); ?></p>
-                        <p class="data"><?php echo date('d/m/Y', strtotime($noticia['data_cad'])); ?></p>
-                    </div>
+                <div class="noticia" id="video">
+                        <div class="news-video">
+                            <!-- Miniatura do vídeo -->
+                            <img src="<?php echo $noticia['img'] ?: 'assets/img/placeholder.png'; ?>" alt="Imagem do vídeo" class="thumbnail"
+                                onclick="abrirModal('<?php echo $noticia['midia']; ?>',
+                                                    '<?php echo htmlspecialchars($noticia['titulo']); ?>',
+                                                    `<?php echo htmlspecialchars($noticia['conteudo']); ?>`)">
+                        </div>
+                        <div class="news-content">
+                            <h2><?php echo htmlspecialchars($noticia['titulo']); ?></h2>
+                            <p><?php echo htmlspecialchars($noticia['desc']); ?></p>
+                            <p class="data"><?php echo date('d/m/Y', strtotime($noticia['data_cad'])); ?></p>
+                        </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>

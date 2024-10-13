@@ -1,81 +1,54 @@
 <?php
 session_start();
 
+// Verificação de login
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     $_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
     header("Location: login.php");
     exit();
 }
 
-// Conexão com o banco de dados
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "db_jornal";
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
+// Conexão com o banco de dados reutilizando conexao.php
+require_once("../backend/conexao.php");
 
 $mensagem = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = $_POST['titulo'] ?? NULL; // Campo obrigatório
-    $desc = $_POST['desc'] ?? NULL; // Campo obrigatório
-    $midia = !empty($_POST['midia']) ? $_POST['midia'] : NULL; // Permite que midia seja NULL
-    $video_duration = !empty($_POST['video_duration']) ? $_POST['video_duration'] : NULL; // Permite que video_duration seja NULL
-    $conteudo = !empty($_POST['conteudo']) ? $_POST['conteudo'] : NULL; // Permite que conteudo seja NULL
-    $data_cad = $_POST['data_cad'] ?? NULL; // Campo obrigatório
+    $titulo = $_POST['titulo'] ?? NULL;
+    $desc = $_POST['desc'] ?? NULL;
+    $midia = !empty($_POST['midia']) ? $_POST['midia'] : NULL;
+    $video_duration = !empty($_POST['video_duration']) ? $_POST['video_duration'] : NULL;
+    $conteudo = !empty($_POST['conteudo']) ? $_POST['conteudo'] : NULL;
+    $data_cad = $_POST['data_cad'] ?? NULL;
 
-    // Diretório de upload de imagem
-    $target_dir = "../uploads/"; // Corrigido o caminho para uploads
+    // Diretório de upload
+    $target_dir = "../uploads/";
     $imageFileType = strtolower(pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION));
     $target_file = $target_dir . uniqid() . "." . $imageFileType;
 
-    // Verifica se o diretório existe, se não, cria
+    // Verifica se o diretório existe
     if (!is_dir($target_dir)) {
-        if (mkdir($target_dir, 0755, true)) {
-            echo "Pasta 'uploads/' criada com sucesso.";
-        } else {
-            echo "Falha ao criar a pasta 'uploads/'.";
-        }
+        mkdir($target_dir, 0755, true);
     }
 
-    // Verifica se o arquivo de imagem foi enviado
+    // Verifica o upload da imagem
     if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
         $check = getimagesize($_FILES["img"]["tmp_name"]);
         if ($check !== false) {
-            // Verifica o tipo do arquivo
             if (in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
-                // Tenta mover o arquivo para a pasta de uploads
-                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
-                    $img = "./uploads/" . basename($target_file); // Caminho relativo a ser armazenado no banco de dados
+                if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
+                    $mensagem = "Notícia adicionada com sucesso!";
                 } else {
-                    $mensagem = "Desculpe, houve um erro ao enviar sua imagem.";
+                    $mensagem = "Erro ao fazer o upload da imagem.";
                 }
             } else {
-                $mensagem = "Apenas arquivos JPG, JPEG, PNG e GIF são permitidos.";
+                $mensagem = "Somente arquivos JPG, JPEG, PNG e GIF são permitidos.";
             }
         } else {
-            $mensagem = "O arquivo não é uma imagem.";
+            $mensagem = "O arquivo enviado não é uma imagem.";
         }
-    } else {
-        $img = NULL; // Caso nenhuma imagem seja enviada
-    }
-
-    // Inserir a notícia no banco de dados
-    $sql = "INSERT INTO tb_jornal (titulo, `desc`, img, midia, video_duration, data_cad, conteudo) 
-            VALUES ('$titulo', '$desc', '$img', " . ($midia ? "'$midia'" : "NULL") . ", " . ($video_duration ? "'$video_duration'" : "NULL") . ", '$data_cad', " . ($conteudo ? "'$conteudo'" : "NULL") . ")";
-
-    if ($conn->query($sql) === TRUE) {
-        $mensagem = "Notícia adicionada com sucesso!";
-    } else {
-        $mensagem = "Erro ao adicionar notícia: " . $conn->error;
     }
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>

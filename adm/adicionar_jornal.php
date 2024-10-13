@@ -1,54 +1,38 @@
 <?php
 session_start();
 
-// Verificação de login
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     $_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
     header("Location: login.php");
     exit();
 }
 
-try {
-    include "../backend/conexao.php";
-    
-    // Verificar se o formulário de upload foi enviado
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['arquivo_pdf'])) {
-        $titulo = $_POST['titulo'] ?? NULL; // Campo obrigatório
-        
-        $arquivo = $_FILES['arquivo_pdf'];
-        $nomeArquivo = basename($arquivo['name']);
-        $caminhoDestino = '../uploads/pdf/' . uniqid() . '_' . $nomeArquivo;
+require_once("../backend/conexao.php");
 
-        // Verificar se o arquivo é realmente PDF
-        if (strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION)) === 'pdf') {
-            // Tentar mover o arquivo para o diretório de uploads
-            if (move_uploaded_file($arquivo['tmp_name'], $caminhoDestino)) {
-                // Inserir informações no banco de dados
-                $sql = "INSERT INTO tb_jornal_pdf (titulo, nome_arquivo) VALUES (:titulo, :nome_arquivo)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bindParam(':titulo', $titulo);
-                $stmt->bindParam(':nome_arquivo', $caminhoDestino);
-                $stmt->execute();
+$mensagem = "";
 
-                // Redirecionar após o upload
-                header("Location: " . $_SERVER['PHP_SELF']);
-                exit();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $target_dir = "../uploads/pdf/";
+    $fileType = strtolower(pathinfo($_FILES["jornal"]["name"], PATHINFO_EXTENSION));
+    $target_file = $target_dir . uniqid() . "." . $fileType;
+
+    if (!is_dir($target_dir)) {
+        mkdir($target_dir, 0755, true);
+    }
+
+    if ($fileType === "pdf") {
+        if ($_FILES["jornal"]["size"] <= 5000000) { // Limitar para 5MB
+            if (move_uploaded_file($_FILES["jornal"]["tmp_name"], $target_file)) {
+                $mensagem = "PDF adicionado com sucesso!";
             } else {
-                $mensagem = "Erro ao enviar o arquivo.";
+                $mensagem = "Erro ao fazer o upload do PDF.";
             }
         } else {
-            $mensagem = "Apenas arquivos PDF são permitidos.";
+            $mensagem = "O arquivo é muito grande. O limite é de 5MB.";
         }
+    } else {
+        $mensagem = "Apenas arquivos PDF são permitidos.";
     }
-    
-    // Selecionar os PDFs já cadastrados
-    $sql_select = "SELECT * FROM tb_jornal_pdf ORDER BY id DESC";
-    $stmt_select = $conn->prepare($sql_select);
-    $stmt_select->execute();
-    $jornal_pdfs = $stmt_select->fetchAll(PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    echo "Erro: " . $e->getMessage();
 }
 ?>
 
