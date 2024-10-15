@@ -4,6 +4,8 @@ session_start();
 try {
     include "backend/conexao.php";
 
+  
+
     // Selecionar as últimas 3 notícias sem vídeo
     $sql = "SELECT * FROM tb_jornal WHERE midia IS NULL ORDER BY id DESC LIMIT 3";
     $stmt = $conn->prepare($sql);
@@ -39,15 +41,21 @@ try {
 <body>
     <header id="header">
         <div class="container">
-            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
+            <img src="assets/img/logojornal.png" alt="" height="80px" >
             <nav>
                 <ul>
-                    <li><a href="index.php">Início</a></li>
+                    <li><a href="index.php" class="active">Início</a></li>  <!-- Class Active indica com bold a página atual -->
                     <li><a href="todas-noticias.php">Notícias</a></li>
                     <li><a href="videos.php">Vídeos</a></li>
                     <li><a href="sobre.php">Sobre</a></li>
                     <li><a href="sugestoes.php">Sugestões</a></li>
                     <li><a href="jornal.php">PDF's</a></li>
+                    <?php 
+                      if(isset($_SESSION['logado']))
+                      if($_SESSION['logado']==true){
+                          echo "<li><a href=adm/painel.php>Admin</a></li>";
+                      }
+                    ?>
                 </ul>
             </nav>
         </div>
