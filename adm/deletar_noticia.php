@@ -22,21 +22,6 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Deletar notícia individualmente
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']); // Garante que o ID seja um número inteiro
-    $sql = "DELETE FROM tb_jornal WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-
-    if ($stmt->execute()) {
-        $mensagem = "Notícia deletada com sucesso!";
-    } else {
-        $mensagem = "Erro ao deletar notícia: " . $conn->error;
-    }
-
-    $stmt->close();
-}
 
 // Deletar múltiplas notícias
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ids'])) {
@@ -71,15 +56,16 @@ $conn->close();
     <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
-            <h1>Área Restrita - Jornal Federal</h1>
+            <img src="../assets/img/logojornal.png" alt="" height="80px" >
             <nav>
                 <ul>
-                    <li><a href="../index.php">Site Principal</a></li>
-                    <li><a href="adicionar_noticia.php">Adicionar Notícias</a></li>
-                    <li><a href="admin_sugestoes.php">Ver Sugestões</a></li>
-                    <li><a href="admin_eventos.php">Editar Eventos</a></li>
+                    <li><a href="../index.php">Visualizar</a></li>
+                    <li><a href="painel.php">Notícias</a></li>
+                    <li><a href="admin_eventos.php">Eventos</a></li>
+                    <li><a href="admin_sugestoes.php">Sugestões</a></li>
+                    <li><a href="adicionar_jornal.php">Jornal</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
@@ -99,8 +85,7 @@ $conn->close();
                 <th>ID</th>
                 <th>Título</th>
                 <th>Descrição</th>
-                <th>Data</th>
-                <th>Ações</th>
+                <th>Data</th>   
             </tr>
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
@@ -110,11 +95,6 @@ $conn->close();
                         <td><?php echo $row["titulo"]; ?></td>
                         <td><?php echo $row["desc"]; ?></td>
                         <td><?php echo $row["data_cad"]; ?></td>
-                        <td>
-                            <a href="deletar_noticia.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Tem certeza que deseja deletar esta notícia?');">
-                                Deletar Individualmente
-                            </a>
-                        </td>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>

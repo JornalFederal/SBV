@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: $redirect_url");  // Redireciona para a página salva
             } else {
                 // Redireciona para adicionar notícias por padrão
-                header('Location: adicionar_noticia.php');
+                header('Location: painel.php');
             }
             exit();
         } else {
@@ -68,7 +68,7 @@ $conn->close();
 <body>
     <header id="header">
         <div class="container">
-        <h1>Área Restrita - Jornal Federal</h1>
+            <img src="../assets/img/logojornal.png" alt="" height="80px" >        
         </div>
     </header>
     
