@@ -11,46 +11,77 @@ require_once("../backend/conexao.php");
 
 $mensagem = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $target_dir = "../uploads/pdf/";
-    $fileType = strtolower(pathinfo($_FILES["jornal"]["name"], PATHINFO_EXTENSION));
-    $target_file = $target_dir . uniqid() . "." . $fileType;
+try {
+    // Verificar se o formulário foi enviado
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $titulo = $_POST['titulo'];
+        $target_dir = "../uploads/pdf/";
 
-    if (!is_dir($target_dir)) {
-        mkdir($target_dir, 0755, true);
-    }
+        // Substituir espaços por underscores e garantir que seja um arquivo PDF
+        $fileName = str_replace(' ', '_', $titulo) . ".pdf";
+        $target_file = $target_dir . $fileName;
 
-    if ($fileType === "pdf") {
-        if ($_FILES["jornal"]["size"] <= 5000000) { // Limitar para 5MB
-            if (move_uploaded_file($_FILES["jornal"]["tmp_name"], $target_file)) {
-                $mensagem = "PDF adicionado com sucesso!";
+        // Verificar se o arquivo foi enviado e é um PDF
+        $fileType = strtolower(pathinfo($_FILES["arquivo_pdf"]["name"], PATHINFO_EXTENSION));
+
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0755, true);
+        }
+
+        if ($fileType === "pdf") {
+            // Limitar o tamanho para 5MB
+            if ($_FILES["arquivo_pdf"]["size"] <= 5000000) {
+                // Mover o arquivo para o diretório de uploads com o nome dado
+                if (move_uploaded_file($_FILES["arquivo_pdf"]["tmp_name"], $target_file)) {
+                    // Inserir informações no banco de dados
+                    $sql = "INSERT INTO tb_jornal_pdf (titulo, nome_arquivo) VALUES (:titulo, :nome_arquivo)";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bindParam(':titulo', $titulo);
+                    $stmt->bindParam(':nome_arquivo', $target_file);
+                    $stmt->execute();
+
+                    // Exibir mensagem de sucesso e redirecionar
+                    $mensagem = "PDF adicionado com sucesso!";
+                    header("Location: " . $_SERVER['PHP_SELF']);
+                    exit();
+                } else {
+                    $mensagem = "Erro ao fazer o upload do PDF.";
+                }
             } else {
-                $mensagem = "Erro ao fazer o upload do PDF.";
+                $mensagem = "O arquivo é muito grande. O limite é de 5MB.";
             }
         } else {
-            $mensagem = "O arquivo é muito grande. O limite é de 5MB.";
+            $mensagem = "Apenas arquivos PDF são permitidos.";
         }
-    } else {
-        $mensagem = "Apenas arquivos PDF são permitidos.";
     }
+
+    // Selecionar os PDFs já cadastrados
+    $sql_select = "SELECT * FROM tb_jornal_pdf ORDER BY id DESC";
+    $stmt_select = $conn->prepare($sql_select);
+    $stmt_select->execute();
+    $jornal_pdfs = $stmt_select->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro: " . $e->getMessage();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Upload de Jornal</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
     <header id="header">
         <div class="container">
-            <img src="../assets/img/logojornal.png" alt="" height="80px" >
+            <img src="../assets/img/logojornal.png" alt="" height="80px">
             <nav>
                 <ul>
-                    <li><a href="../index.php">Visualizar</a></li>  <!-- Class Active indica com bold a página atual -->
+                    <li><a href="../index.php">Visualizar</a></li>
                     <li><a href="painel.php">Notícias</a></li>
                     <li><a href="admin_eventos.php">Eventos</a></li>
                     <li><a href="admin_sugestoes.php">Sugestões</a></li>
@@ -62,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <section class="container">
-        <h2>Upload de Jornal (PDF)</h2>
+        <h2 class="tit">Upload de Jornal (PDF)</h2>
 
         <?php if (!empty($mensagem)): ?>
             <p style="color: red;"><?php echo $mensagem; ?></p>
@@ -101,4 +132,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </footer>
 </body>
+
 </html>

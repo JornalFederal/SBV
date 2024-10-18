@@ -21,16 +21,18 @@ try {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jornal Estudantil IFSP</title>
-    <link rel="stylesheet" href="assets/css/modal.css">
+    <link rel="stylesheet" href="assets/css/pre-style.css">
 </head>
+
 <body>
     <header id="header">
         <div class="container">
-            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
+            <img src="assets/img/logojornal.png" alt="" height="80px">
             <nav>
                 <ul>
                     <li><a href="index.php">Início</a></li>
@@ -39,34 +41,42 @@ try {
                     <li><a href="sobre.php">Sobre</a></li>
                     <li><a href="sugestoes.php">Sugestões</a></li>
                     <li><a href="jornal.php">PDF's</a></li>
+                    <?php
+                    if (isset($_SESSION['logado']))
+                        if ($_SESSION['logado'] == true) {
+                            echo "<li><a href=adm/painel.php>Admin</a></li>";
+                        }
+                    ?>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div class="noticia-container">
-    <?php
-        foreach ($menu as $item) {
-        ?>
-            <div class="noticia-info">
-                <h2><?php echo $item['titulo']; ?></h2>
-                <img src="<?php echo $item['img']; ?>" alt="">
-                <p><?php echo $item['conteudo']; ?></p>
-                <br>
-                <br>
-                <div class="center"><a href="index.php"><button class="voltar-button">Voltar</button></a></div>
+    <div class="container">
+        <div class="holder">
+            <div class="noticia-container">
+                <?php
+                foreach ($menu as $item) {
+                ?>
+                    <div class="noticia-info">
+                        <h2 class="news-tit"><?php echo $item['titulo']; ?></h2>
+                        <img class="img" src="<?php echo $item['img']; ?>" alt="">
+                        <p><?php echo $item['conteudo']; ?></p>
+                        <br>
+                        <br>
+                    </div>
+                <?php
+                };
+                ?>
             </div>
-        <?php
-        };
-        ?>
-    </div>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
+    </div>
+    <div class="center"><a href="index.php"><button class="voltar-button">Voltar</button></a></div>
+    <footer>
+        <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
     </footer>
 
     <script src="assets/js/scroll.js"></script>
 </body>
+
 </html>

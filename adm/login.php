@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica se o usuário existe
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        
+
         // Verifica se a senha está correta
         if (password_verify($senha, $row['senha'])) {
             $_SESSION['logado'] = true;
@@ -59,19 +59,21 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Login</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
     <header id="header">
         <div class="container">
-            <img src="../assets/img/logojornal.png" alt="" height="80px" >        
+            <img src="../assets/img/logojornal.png" alt="" height="80px">
         </div>
     </header>
-    
+
     <section class="container">
         <div>
             <h3 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Login</h3>
@@ -93,4 +95,5 @@ $conn->close();
         </div>
     </footer>
 </body>
+
 </html>

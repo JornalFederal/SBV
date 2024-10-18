@@ -11,4 +11,3 @@ try {
     error_log("Connection failed: " . $e->getMessage()); // Logar o erro
     die("Erro na conexão com o banco de dados."); // Mensagem genérica
 }
-?>

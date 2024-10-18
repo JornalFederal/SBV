@@ -1,46 +1,41 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+session_start();
+
+try {
     include "backend/conexao.php";
-
-    $nome = $_POST['nome'];
-    $sugestao = $_POST['sugestao'];
-
-    try {
-        // Inserir sugestão no banco de dados
-        $sql = "INSERT INTO tb_sugestoes (nome, sugestao) VALUES (:nome, :sugestao)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':sugestao', $sugestao);
-        $stmt->execute();
-
-        echo json_encode(['mensagem' => "Sugestão enviada com sucesso!"]); // Envia uma resposta JSON
-    } catch(PDOException $e) {
-        echo json_encode(['mensagem' => "Erro ao enviar sugestão: " . $e->getMessage()]); // Resposta de erro em JSON
-    }
-    exit();
+} catch (PDOException $err) {
+    echo "Erro: " . $err->getMessage();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caixa de Sugestões - Jornal Estudantil IFSP SBV</title>
-    <link rel="stylesheet" href="assets/css/modal.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <header id="header">
         <div class="container">
-            <h1>Jornal Estudantil IFSP São João da Boa Vista</h1>
+            <img src="assets/img/logojornal.png" alt="" height="80px">
             <nav>
                 <ul>
                     <li><a href="index.php">Início</a></li>
                     <li><a href="todas-noticias.php">Notícias</a></li>
                     <li><a href="videos.php">Vídeos</a></li>
                     <li><a href="sobre.php">Sobre</a></li>
-                    <li><a href="sugestoes.php">Sugestões</a></li>
+                    <li><a href="sugestoes.php" class="active">Sugestões</a></li>
                     <li><a href="jornal.php">PDF's</a></li>
+                    <?php
+                    if (isset($_SESSION['logado']))
+                        if ($_SESSION['logado'] == true) {
+                            echo "<li><a href=adm/painel.php>Admin</a></li>";
+                        }
+                    ?>
                 </ul>
             </nav>
         </div>
@@ -48,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <section class="container">
         <h2>Caixa de Sugestões</h2>
         <p>Quer compartilhar suas ideias ou dar sugestões para melhorar o nosso jornal? Preencha o formulário abaixo e nos envie sua sugestão! Caso queira ser Anônimo é só deixar o nome padrão!</p>
-        <form id="sugestaoForm">
+        <form class="form" id="sugestaoForm">
             <label for="nome">Nome:</label><br>
             <input type="text" id="nome" name="nome" value="Anônimo" placeholder="Seu Nome" required><br><br>
 
@@ -67,5 +62,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="assets/js/sugestoes.js"></script>
     <script src="assets/js/scroll.js"></script>
 </body>
-</html>
 
+</html>

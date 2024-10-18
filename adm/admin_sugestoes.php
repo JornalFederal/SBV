@@ -37,7 +37,6 @@ try {
 
     // Fetch de todas as sugestões do banco
     $sugestoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
     echo "Erro na consulta: " . $e->getMessage();
 }
@@ -46,16 +45,18 @@ try {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Sugestões</title>
-    <link rel="stylesheet" href="css/sugestoes.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
     <header id="header">
         <div class="container">
-            <img src="../assets/img/logojornal.png" alt="" height="80px" >
+            <img src="../assets/img/logojornal.png" alt="" height="80px">
             <nav>
                 <ul>
                     <li><a href="../index.php">Visualizar</a></li>
@@ -70,7 +71,7 @@ try {
     </header>
 
     <section class="container">
-        <h2>Sugestões Recebidas</h2>
+        <h2 class="tit">Sugestões Recebidas</h2>
         <?php if (!empty($sugestoes)): ?>
             <table>
                 <thead>
@@ -83,17 +84,17 @@ try {
                 </thead>
                 <tbody>
                     <?php foreach ($sugestoes as $sugestao): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($sugestao['nome']); ?></td>
-                        <td><?php echo htmlspecialchars($sugestao['sugestao']); ?></td>
-                        <td><?php echo date('d/m/Y H:i', strtotime($sugestao['data_envio'])); ?></td>
-                        <td>
-                            <form method="POST" action="">
-                                <input type="hidden" name="id_sugestao" value="<?php echo $sugestao['id']; ?>">
-                                <button type="submit" name="delete_sugestao" class="btn-delete">Excluir</button>
-                            </form>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td><?php echo htmlspecialchars($sugestao['nome']); ?></td>
+                            <td><?php echo htmlspecialchars($sugestao['sugestao']); ?></td>
+                            <td><?php echo date('d/m/Y H:i', strtotime($sugestao['data_envio'])); ?></td>
+                            <td>
+                                <form method="POST" action="">
+                                    <input type="hidden" name="id_sugestao" value="<?php echo $sugestao['id']; ?>">
+                                    <button type="submit" name="delete_sugestao" class="btn-delete">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -108,4 +109,5 @@ try {
         </div>
     </footer>
 </body>
+
 </html>

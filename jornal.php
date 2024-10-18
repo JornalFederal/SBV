@@ -7,7 +7,6 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $jornais = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
     echo "Erro: " . $e->getMessage();
 }
@@ -15,24 +14,32 @@ try {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jornais Disponíveis</title>
-    <link rel="stylesheet" href="assets/css/modal.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <header>
         <div class="container">
-            <h1>Jornal Estudantil IFSP</h1>
+            <img src="assets/img/logojornal.png" alt="" height="80px">
             <nav>
                 <ul>
-                <li><a href="index.php">Início</a></li>
+                    <li><a href="index.php">Início</a></li>
                     <li><a href="todas-noticias.php">Notícias</a></li>
                     <li><a href="videos.php">Vídeos</a></li>
                     <li><a href="sobre.php">Sobre</a></li>
                     <li><a href="sugestoes.php">Sugestões</a></li>
-                    <li><a href="jornal.php">PDF's</a></li>
+                    <li><a href="jornal.php" class="active">PDF's</a></li>
+                    <?php
+                    if (isset($_SESSION['logado']))
+                        if ($_SESSION['logado'] == true) {
+                            echo "<li><a href=adm/painel.php>Admin</a></li>";
+                        }
+                    ?>
                 </ul>
             </nav>
         </div>
@@ -60,4 +67,5 @@ try {
         </div>
     </footer>
 </body>
+
 </html>

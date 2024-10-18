@@ -40,16 +40,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Eventos</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
     <header id="header">
         <div class="container">
-            <img src="../assets/img/logojornal.png" alt="" height="80px" >
+            <img src="../assets/img/logojornal.png" alt="" height="80px">
             <nav>
                 <ul>
                     <li><a href="../index.php">Visualizar</a></li>
@@ -64,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <section class="container">
-        <h2>Adicionar Novo Evento</h2>
+        <h2 class="tit">Adicionar Novo Evento</h2>
         <form method="POST" action="" class="forms">
             <label for="evento">Nome do Evento:</label>
             <input type="text" name="evento" id="evento" required>
@@ -82,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li>
                         <strong><?php echo htmlspecialchars($evento['evento'] ?? 'Evento sem nome'); ?></strong><br>
                         <?php echo date('d/m/Y', strtotime($evento['data_evento'] ?? '')); ?><br>
-                        
+
                         <!-- Formulário para deletar o evento -->
                         <form method="POST" action="" style="display:inline;">
                             <input type="hidden" name="id_evento" value="<?php echo $evento['id']; ?>">
@@ -102,4 +104,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </footer>
 </body>
+
 </html>

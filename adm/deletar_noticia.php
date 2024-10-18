@@ -49,16 +49,18 @@ $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deletar Notícias</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
     <header id="header">
         <div class="container">
-            <img src="../assets/img/logojornal.png" alt="" height="80px" >
+            <img src="../assets/img/logojornal.png" alt="" height="80px">
             <nav>
                 <ul>
                     <li><a href="../index.php">Visualizar</a></li>
@@ -72,7 +74,7 @@ $conn->close();
         </div>
     </header>
 
-    <h2>Lista de Notícias</h2>
+    <h2 class="tit">Lista de Notícias</h2>
 
     <?php if (isset($mensagem)): ?>
         <p class="center"><?php echo $mensagem; ?></p>
@@ -85,10 +87,10 @@ $conn->close();
                 <th>ID</th>
                 <th>Título</th>
                 <th>Descrição</th>
-                <th>Data</th>   
+                <th>Data</th>
             </tr>
             <?php if ($result->num_rows > 0): ?>
-                <?php while($row = $result->fetch_assoc()): ?>
+                <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
                         <td><input type="checkbox" name="ids[]" value="<?php echo $row['id']; ?>"></td> <!-- Checkbox para selecionar -->
                         <td><?php echo $row["id"]; ?></td>
@@ -114,5 +116,5 @@ $conn->close();
         </div>
     </footer>
 </body>
-</html>
 
+</html>

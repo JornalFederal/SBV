@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data_cad = $_POST['data_cad'] ?? NULL;
 
     // Diretório de upload
-    $target_dir = "../uploads/";
+    $target_dir = "./uploads/img/";
     $imageFileType = strtolower(pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION));
     $target_file = $target_dir . uniqid() . "." . $imageFileType;
 
@@ -37,7 +37,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check !== false) {
             if (in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
                 if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
-                    $mensagem = "Notícia adicionada com sucesso!";
+                    // Inserir os dados da notícia no banco de dados
+                    $sql = "INSERT INTO tb_jornal (titulo, `desc`, img, data_cad, midia, video_duration, conteudo) 
+                            VALUES (:titulo, :desc, :img, :data_cad, :midia, :video_duration, :conteudo)";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bindParam(':titulo', $titulo);
+                    $stmt->bindParam(':desc', $desc);
+                    $stmt->bindParam(':img', $target_file); // Caminho da imagem no servidor
+                    $stmt->bindParam(':data_cad', $data_cad);
+                    $stmt->bindParam(':midia', $midia);
+                    $stmt->bindParam(':video_duration', $video_duration);
+                    $stmt->bindParam(':conteudo', $conteudo);
+
+                    if ($stmt->execute()) {
+                        $mensagem = "Notícia adicionada com sucesso!";
+                    } else {
+                        $mensagem = "Erro ao adicionar a notícia no banco de dados.";
+                    }
                 } else {
                     $mensagem = "Erro ao fazer o upload da imagem.";
                 }
@@ -47,22 +63,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $mensagem = "O arquivo enviado não é uma imagem.";
         }
+    } else {
+        // Se não há imagem, inserir os dados sem a imagem
+        $sql = "INSERT INTO tb_jornal (titulo, `desc`, data_cad, midia, video_duration, conteudo) 
+                VALUES (:titulo, :desc, :data_cad, :midia, :video_duration, :conteudo)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':desc', $desc);
+        $stmt->bindParam(':data_cad', $data_cad);
+        $stmt->bindParam(':midia', $midia);
+        $stmt->bindParam(':video_duration', $video_duration);
+        $stmt->bindParam(':conteudo', $conteudo);
+
+        if ($stmt->execute()) {
+            $mensagem = "Notícia adicionada com sucesso!";
+        } else {
+            $mensagem = "Erro ao adicionar a notícia no banco de dados.";
+        }
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Notícia</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
     <header id="header">
         <div class="container">
-            <img src="../assets/img/logojornal.png" alt="" height="80px" >
+            <img src="../assets/img/logojornal.png" alt="" height="80px">
             <nav>
                 <ul>
                     <li><a href="../index.php">Visualizar</a></li>
@@ -75,15 +110,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </nav>
         </div>
     </header>
-    
+
     <div class="container">
-        <h2 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Adicionar Notícia</h2>
+        <h2 class="tit">Adicionar Notícia</h2>
 
         <?php if (!empty($mensagem)): ?>
             <h2 style="text-align: center;"><?php echo $mensagem; ?></h2>
         <?php endif; ?>
 
-        <form method="POST" action="adicionar_noticia.php" enctype="multipart/form-data">
+        <form class="forms" method="POST" action="adicionar_noticia.php" enctype="multipart/form-data">
             <label for="titulo">Título:</label><br>
             <input type="text" name="titulo" required><br><br>
 
@@ -103,16 +138,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="video_duration" placeholder="Ex: 3 min"><br><br>
 
             <label for="conteudo">Conteúdo:</label><br>
-            <textarea name="conteudo" rows="5" cols="30"></textarea><br><br>
+            <textarea name="conteudo" rows="5" cols="30" required></textarea><br><br>
 
             <button type="submit">Adicionar Notícia</button>
         </form>
     </div>
-    
+
     <footer>
         <div class="container">
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
 </body>
+
 </html>
