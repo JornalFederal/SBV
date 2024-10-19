@@ -32,7 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Verifica se a senha está correta
         if (password_verify($senha, $row['senha'])) {
+            // Define a sessão logado como true
             $_SESSION['logado'] = true;
+
+            // Verifica o valor da coluna 'poderes'
+            if ($row['poderes'] == 0) {
+                // Usuário comum, redireciona para index.php
+                header('Location: index.php');
+                exit();
+            } else {
+                // Define a sessão adm_logado como true se for administrador
+                $_SESSION['adm_logado'] = true;
+            }
 
             // Redireciona para a página de origem se existir
             if (isset($_SESSION['redirect'])) {
@@ -41,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: $redirect_url");  // Redireciona para a página salva
             } else {
                 // Redireciona para adicionar notícias por padrão
-                header('Location: painel.php');
+                header('Location: adm/painel.php');
             }
             exit();
         } else {
@@ -64,13 +75,13 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Login</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
     <header id="header">
         <div class="container">
-            <img src="../assets/img/logojornal.png" alt="" height="80px">
+            <img src="assets/img/logojornal.png" alt="" height="80px">
         </div>
     </header>
 
@@ -80,7 +91,7 @@ $conn->close();
             <?php if (isset($erro)): ?>
                 <p style="color: red;"><?php echo $erro; ?></p>
             <?php endif; ?>
-            <form method="POST" action="login.php">
+            <form class="forms" method="POST" action="login.php">
                 <label for="usuario">Usuário:</label>
                 <input type="text" name="usuario" required><br><br>
                 <label for="senha">Senha:</label>

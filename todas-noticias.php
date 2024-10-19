@@ -43,8 +43,8 @@ try {
                     <li><a href="sugestoes.php">Sugestões</a></li>
                     <li><a href="jornal.php">PDF's</a></li>
                     <?php
-                    if (isset($_SESSION['logado']))
-                        if ($_SESSION['logado'] == true) {
+                    if (isset($_SESSION['adm_logado']))
+                        if ($_SESSION['adm_logado'] == true) {
                             echo "<li><a href=adm/painel.php>Admin</a></li>";
                         }
                     ?>

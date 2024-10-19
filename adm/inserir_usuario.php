@@ -13,8 +13,9 @@ if ($conn->connect_error) {
 }
 
 // Inserir usuário e senha criptografada
-$usuario = 'admin'; // Nome do usuário
-$senha = password_hash('admin123', PASSWORD_DEFAULT); // Criptografa a senha
+$usuario = 'test'; // Nome do usuário
+$senha = password_hash('test123', PASSWORD_DEFAULT); // Criptografa a senha
+$poderes = '0';
 
 $sql = "INSERT INTO usuarios (usuario, senha) VALUES ('$usuario', '$senha')";
 
@@ -25,3 +26,4 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
+?>
