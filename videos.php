@@ -44,6 +44,18 @@ try {
                             echo "<li><a href=adm/painel.php>Admin</a></li>";
                         }
                     ?>
+                    <?php
+                    if (isset($_SESSION['logado']))
+                        if ($_SESSION['logado'] == false) {
+                            echo "<li><a href=login.php>Login</a></li>";
+                        }
+                    ?>
+                    <?php
+                    if (isset($_SESSION['logado']))
+                        if ($_SESSION['logado'] == true) {
+                            echo "<li><a href=logout.php>Logout</a></li>";
+                        }
+                    ?>
                 </ul>
             </nav>
         </div>
