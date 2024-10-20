@@ -81,7 +81,7 @@ $conn->close();
     <?php endif; ?>
 
     <form class="forms" method="POST" action="deletar_noticia.php">
-        <table border="1">
+        <table>
             <tr>
                 <th>Selecionar</th> <!-- Nova coluna para checkbox -->
                 <th>ID</th>

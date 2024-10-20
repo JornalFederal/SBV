@@ -41,6 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //Define o Nome do usuário
             $_SESSION['nome'] = $row['nome'];
             
+            $_SESSION['poderes'] = $row['poderes'];
+
             // Verifica o valor da coluna 'poderes'
             if ($row['poderes'] == 0) {
                 // Usuário comum, redireciona para index.php
