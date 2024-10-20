@@ -111,7 +111,6 @@ try {
             </div>
 
             <!-- Exibir Comentários -->
-            <!-- Exibir Comentários -->
             <div class="comentarios-section">
                 <h3>Comentários:</h3>
                 <div id="comentarios-list">

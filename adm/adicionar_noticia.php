@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li><a href="admin_eventos.php">Eventos</a></li>
                     <li><a href="admin_sugestoes.php">Sugestões</a></li>
                     <li><a href="adicionar_jornal.php">Jornal</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="../logout.php">Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -119,26 +119,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
 
         <form class="forms" method="POST" action="adicionar_noticia.php" enctype="multipart/form-data">
-            <label for="titulo">Título:</label><br>
-            <input type="text" name="titulo" required><br><br>
+            <label for="titulo">Título:</label>
+            <input type="text" name="titulo" required><br>
 
-            <label for="desc">Descrição:</label><br>
-            <input type="text" name="desc" required><br><br>
+            <label for="desc">Descrição:</label>
+            <input type="text" name="desc" required><br>
 
-            <label for="data_cad">Data:</label><br>
-            <input type="date" name="data_cad" required><br><br>
+            <label for="data_cad">Data:</label>
+            <input type="date" name="data_cad" required><br>
 
-            <label for="img">Imagem (upload):</label><br>
-            <input type="file" name="img" accept="image/*"><br><br>
+            <label for="img">Imagem (upload):</label>
+            <input type="file" name="img" accept="image/*"><br>
 
-            <label for="midia">Mídia (URL ou caminho):</label><br>
-            <input type="text" name="midia"><br><br>
+            <label for="midia">Mídia (URL ou caminho):</label>
+            <input type="text" name="midia"><br>
 
-            <label for="video_duration">Duração do Vídeo:</label><br>
-            <input type="text" name="video_duration" placeholder="Ex: 3 min"><br><br>
+            <label for="video_duration">Duração do Vídeo:</label>
+            <input type="text" name="video_duration" placeholder="Ex: 3 min"><br>
 
-            <label for="conteudo">Conteúdo:</label><br>
-            <textarea name="conteudo" rows="5" cols="30" required></textarea><br><br>
+            <label for="conteudo">Conteúdo:</label>
+            <textarea name="conteudo" rows="5" cols="30" required></textarea><br>
 
             <button type="submit">Adicionar Notícia</button>
         </form>

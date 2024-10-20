@@ -81,7 +81,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Login</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pre-style.css">
 </head>
 
 <body>
@@ -95,15 +95,17 @@ $conn->close();
         <div>
             <h3 style="color: #00510f; text-align: center; margin: 20px 0; font-size: 40px;">Login</h3>
             <?php if (isset($erro)): ?>
-                <p style="color: red;"><?php echo $erro; ?></p>
+                <p style="color: red; text-align: center;"><?php echo $erro; ?></p>
             <?php endif; ?>
             <form class="forms" method="POST" action="login.php">
                 <label for="usuario">Usuário:</label>
-                <input type="text" name="usuario" required><br><br>
+                <input class="login-input" type="text" name="usuario" required><br><br>
                 <label for="senha">Senha:</label>
                 <input type="password" name="senha" required><br><br>
                 <button type="submit">Entrar</button>
             </form>
+            <p style="text-align: center;"><a style="color: #00510f;" href="cadastrar.php">Criar uma Conta</a></p>
+            <p style="text-align: center;"><a style="color: #333;" href="index.php">Entrar como Anônimo</a></p>
         </div>
     </section>
     <footer id="footer">
@@ -111,6 +113,7 @@ $conn->close();
             <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script src="assets/js/scroll.js"></script>
 </body>
 
 </html>

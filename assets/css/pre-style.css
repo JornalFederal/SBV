@@ -96,6 +96,7 @@ nav ul li a:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   margin: 20px auto;
+  min-width: 50%;
 }
 
 .form label {
@@ -106,7 +107,7 @@ nav ul li a:hover {
 
 .form input,
 form textarea {
-  width: 100%;
+  width: 97.5%;
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 15px;
@@ -171,6 +172,7 @@ margin-bottom: 40px;
   text-decoration: underline;
   cursor: pointer;
 }
+
 .noticia h2 {
   color: #00510f;
   margin-bottom: 5px;
@@ -415,10 +417,12 @@ footer p {
 
 .forms label {
   font-weight: bold;
+  display: flex;
 }
 
+
 .forms input {
-  width: 100%;
+  width: 97.4%;
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 15px;

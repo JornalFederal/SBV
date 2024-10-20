@@ -174,51 +174,47 @@ $conn->close();
                     <li><a href="adicionar_noticia.php">Adicionar Notícias</a></li>
                     <li><a href="admin_sugestoes.php">Ver Sugestões</a></li>
                     <li><a href="admin_eventos.php">Editar Eventos</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="../logout.php">Logout</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <h2 class="tit">Editar Notícia</h2>
-
-    <?php if (isset($mensagem)): ?>
-        <p class="center"><?php echo $mensagem; ?></p>
-    <?php endif; ?>
-
-    <form class="forms" method="POST" action="editar_noticia.php?id=<?php echo $id; ?>" enctype="multipart/form-data">
-        <label for="titulo">Título:</label>
-        <input type="text" name="titulo" value="<?php echo $noticia['titulo']; ?>">
-        <label for="desc">Descrição</label>
-        <input type="text" name="desc" value="<?php echo $noticia['desc']; ?>">
-        <?php
-        if (!empty($noticia['img'])) {
-            echo '<div style="display: flex; align-items: center; justify-content: center">
-                    <img src="../' . $noticia['img'] . '" alt="fotoatual" height="200">
-                    <a href="editar_noticia.php?id=' . $id . '&deletar_img=true" 
-                    onclick="return confirm(\'Tem certeza que deseja deletar esta imagem da notícia?\');">
-                        <i class="fa-solid fa-trash" style="margin-left: 5px"></i>
-                    </a>
-                  </div>';
-            echo "<br>";
-        } else {
-            echo '<span>A imagem não tem foto!</span><br>';
-        }
-        ?>
-        <label for="img">Imagem:</label><br>
-        <input type="file" name="img" accept="image/*">
-        <label for="midia">Mídia (URL ou caminho):</label><br>
-        <input type="text" name="midia" value="<?php echo $noticia['midia']; ?>"><br><br>
-
-        <label for="video_duration">Duração do Vídeo:</label><br>
-        <input type="text" name="video_duration" placeholder="Ex: 3 min"><br><br>
-
-        <label for="conteudo">Conteúdo:</label><br>
-        <textarea name="conteudo" rows="5" cols="30"></textarea><br><br>
-
-        <button type="submit">Salvar Alterações</button>
-
-    </form>
+    <section class="container">
+        <h2 class="tit">Editar Notícia</h2>
+        <?php if (isset($mensagem)): ?>
+            <p class="center"><?php echo $mensagem; ?></p>
+        <?php endif; ?>
+        <form class="forms" method="POST" action="editar_noticia.php?id=<?php echo $id; ?>" enctype="multipart/form-data">
+            <label for="titulo">Título:</label>
+            <input type="text" name="titulo" value="<?php echo $noticia['titulo']; ?>">
+            <label for="desc">Descrição</label>
+            <input type="text" name="desc" value="<?php echo $noticia['desc']; ?>">
+            <?php
+            if (!empty($noticia['img'])) {
+                echo '<div style="display: flex; align-items: center; justify-content: center">
+                        <img src="../' . $noticia['img'] . '" alt="fotoatual" height="200">
+                        <a href="editar_noticia.php?id=' . $id . '&deletar_img=true"
+                        onclick="return confirm(\'Tem certeza que deseja deletar esta imagem da notícia?\');">
+                            <i class="fa-solid fa-trash" style="margin-left: 5px"></i>
+                        </a>
+                      </div>';
+                echo "<br>";
+            } else {
+                echo '<span>A imagem não tem foto!</span><br>';
+            }
+            ?>
+            <label for="img">Imagem:</label>
+            <input type="file" name="img" accept="image/*">
+            <label for="midia">Mídia (URL ou caminho):</label><br>
+            <input type="text" name="midia" value="<?php echo $noticia['midia']; ?>"><br>
+            <label for="video_duration">Duração do Vídeo:</label>
+            <input type="text" name="video_duration" placeholder="Ex: 3 min"><br><br>
+            <label for="conteudo">Conteúdo:</label>
+            <textarea name="conteudo" rows="5" cols="30"></textarea><br>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </section>
 
     <footer>
         <div class="container">
