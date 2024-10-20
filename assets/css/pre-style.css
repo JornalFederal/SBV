@@ -155,7 +155,7 @@ button:hover {
   margin-right: 5px;
 }
 .comentario{
-  margin-top: 0px;
+  margin: 0px;
 }
 small{
   font-size: 12px;
@@ -163,7 +163,14 @@ small{
 .noticia-info {
 margin-bottom: 40px;
 }
-
+.ver-mais{
+  margin: 0px;
+  font-size: 14px;
+}
+.ver-mais:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
 .noticia h2 {
   color: #00510f;
   margin-bottom: 5px;
@@ -361,6 +368,7 @@ td a:hover {
 .closex:hover {
   text-decoration: underline;
   color: #12722c;
+  cursor: pointer;
 }
 
 /* Footer */

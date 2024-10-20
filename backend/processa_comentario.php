@@ -15,11 +15,12 @@ try {
     $stmt->bindParam(':comentario', $comentario);
     $stmt->execute();
 
-    // Redirecionar de volta para a página da notícia
-    header("Location: ../noticias.php?id=" . $id_noticia);
+    // Retorna sucesso
+    echo json_encode(['success' => true]);
     exit();
 
 } catch (PDOException $err) {
-    echo "Erro: " . $err->getMessage();
+    echo json_encode(['success' => false, 'error' => $err->getMessage()]);
+    exit();
 }
 ?>

@@ -3,7 +3,7 @@ session_start();
 include 'conexao.php'; // Verifique se o caminho está correto
 
 $id_noticia = $_GET['id_noticia'];
-$offset = $_GET['offset'];
+$offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0; // Se não houver offset, o padrão será 0
 
 $sql = "SELECT c.comentario, c.data_comentario, u.nome 
         FROM comentarios c 
@@ -19,10 +19,11 @@ $stmt->execute();
 $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($comentarios as $comentario) {
+    // Formata a data para o formato desejado
+    $data_formatada = date('d/m/Y H:i', strtotime($comentario['data_comentario']));
     echo "<div class='comentario'>";
-    echo "<strong>" . htmlspecialchars($comentario['nome']) . " disse:</strong>";
-    echo "<p>" . htmlspecialchars($comentario['comentario']) . "</p>";
-    echo "<small>" . $comentario['data_comentario'] . "</small>";
+    echo "<strong class='username'>" . htmlspecialchars($comentario['nome']) . " </strong><small>" . $data_formatada . "</small>";
+    echo "<p class='comentario'>" . htmlspecialchars($comentario['comentario']) . "</p>";
     echo "<hr>";
-    echo "</div>";
+    echo "</div>"; 
 }

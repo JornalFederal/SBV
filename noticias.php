@@ -13,17 +13,24 @@ try {
     $stmt->execute();
     $menu = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Buscando os comentários relacionados à notícia
+    // Buscando os primeiros 5 comentários relacionados à notícia
     $sql_comentarios = "SELECT c.comentario, c.data_comentario, u.nome 
                         FROM comentarios c 
                         JOIN usuarios u ON c.id_usuario = u.id 
                         WHERE c.id_noticia = :id_noticia 
-                        ORDER BY c.data_comentario DESC";
+                        ORDER BY c.data_comentario DESC 
+                        LIMIT 5";
     $stmt_comentarios = $conn->prepare($sql_comentarios);
     $stmt_comentarios->bindParam(':id_noticia', $id);
     $stmt_comentarios->execute();
     $comentarios = $stmt_comentarios->fetchAll(PDO::FETCH_ASSOC);
 
+    // Conta o total de comentários
+    $sql_total = "SELECT COUNT(*) FROM comentarios WHERE id_noticia = :id_noticia";
+    $stmt_total = $conn->prepare($sql_total);
+    $stmt_total->bindParam(':id_noticia', $id);
+    $stmt_total->execute();
+    $total_comentarios = $stmt_total->fetchColumn();
 } catch (PDOException $err) {
     echo "Erro" . $err->getMessage();
 }
@@ -92,16 +99,17 @@ try {
             <div class="comentario-form">
                 <h3>Deixe seu comentário:</h3>
                 <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) { ?>
-                    <form action="backend/processa_comentario.php" method="POST">
+                    <form id="comentario-form" method="POST">
                         <input type="hidden" name="id_noticia" value="<?php echo $id; ?>">
                         <textarea name="comentario" placeholder="Escreva seu comentário..." required></textarea>
-                        <input type="submit" value="Enviar">
+                        <input class="button" type="submit" value="Enviar">
                     </form>
                 <?php } else { ?>
                     <p>Você precisa <a href="login.php">fazer login</a> para comentar.</p>
                 <?php } ?>
             </div>
-            
+
+            <!-- Exibir Comentários -->
             <!-- Exibir Comentários -->
             <div class="comentarios-section">
                 <h3>Comentários:</h3>
@@ -122,17 +130,19 @@ try {
                     }
                     ?>
                 </div>
+                <div id="ver-mais-container">
+                    <p class="ver-mais" id="ver-mais" data-offset="3" data-id-noticia="<?php echo $id; ?>">Ver mais</p>
+                </div>
             </div>
         </div>
+        </section>
     </div>
-
-    <div class="center"><a href="index.php"><button class="voltar-button">Voltar</button></a></div>
 
     <footer>
         <p>&copy; 2024 Jornal Estudantil IFSP São João da Boa Vista. Todos os direitos reservados.</p>
     </footer>
-
     <script src="assets/js/scroll.js"></script>
+    <script src="assets/js/comentarios.js"></script>
 </body>
 
 </html>
