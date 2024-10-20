@@ -1,14 +1,18 @@
 <?php
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', ''); // Deixe vazio se não houver senha
-define('DB_NAME', 'db_jornal'); // Certifique-se de que este banco de dados existe
+// Parâmetros de conexão
+$dsn = "mysql:host=localhost;dbname=db_jornal";
+$username = "root";
+$password = "";
 
 try {
-    // Cria uma nova conexão PDO
-    $conn = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
-    // Configura o modo de erro do PDO para exceções
+    // Cria uma nova instância de PDO para conectar ao banco de dados
+    $pdo = new PDO($dsn, $username, $password);
+    $conn = new PDO($dsn, $username, $password);
+    // Configura o PDO para lançar exceções em caso de erro
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    error_log("Connection failed: " . $e->getMessage()); // Logar o erro
-    die("Erro na conexão com o banco de dados."); // Mensagem genérica
+    // Em caso de erro, exibe a mensagem de erro
+    echo "Erro ao conectar ao banco de dados: " . $e->getMessage();
+    exit();
 }
+?>

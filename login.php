@@ -35,6 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Define a sessão logado como true
             $_SESSION['logado'] = true;
 
+            //Define o ID do usuário
+            $_SESSION['id_usuario'] = $row['id'];
+
+            //Define o Nome do usuário
+            $_SESSION['nome'] = $row['nome'];
+            
             // Verifica o valor da coluna 'poderes'
             if ($row['poderes'] == 0) {
                 // Usuário comum, redireciona para index.php

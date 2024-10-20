@@ -129,6 +129,20 @@ button:hover {
   text-decoration: underline;
 }
 
+.button {
+  background-color: #195128;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #196b2f;
+  text-decoration: underline;
+}
+
 /* Notícia */
 .noticia {
   background: #fff;
@@ -136,6 +150,18 @@ button:hover {
   margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.username{
+  margin-right: 5px;
+}
+.comentario{
+  margin-top: 0px;
+}
+small{
+  font-size: 12px;
+}
+.noticia-info {
+margin-bottom: 40px;
 }
 
 .noticia h2 {
