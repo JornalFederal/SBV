@@ -42,16 +42,15 @@ try {
                         }
                     ?>
                     <?php
-                    if (isset($_SESSION['logado']))
-                        if ($_SESSION['logado'] == false) {
-                            echo "<li><a href=login.php>Login</a></li>";
-                        }
-                    ?>
-                    <?php
-                    if (isset($_SESSION['logado']))
+                    if (isset($_SESSION['logado'])) {
                         if ($_SESSION['logado'] == true) {
-                            echo "<li><a href=logout.php>Logout</a></li>";
+                            echo "<li><a href='logout.php'>Logout</a></li>";
+                        } else {
+                            echo "<li><a href='login.php'>Faça seu Login</a></li>";
                         }
+                    } else {
+                        echo "<li><a href='login.php'>Faça seu Login</a></li>";
+                    }
                     ?>
                 </ul>
             </nav>
