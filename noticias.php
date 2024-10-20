@@ -88,6 +88,20 @@ try {
                 ?>
             </div>
 
+            <!-- Formulário de Comentário -->
+            <div class="comentario-form">
+                <h3>Deixe seu comentário:</h3>
+                <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) { ?>
+                    <form action="backend/processa_comentario.php" method="POST">
+                        <input type="hidden" name="id_noticia" value="<?php echo $id; ?>">
+                        <textarea name="comentario" placeholder="Escreva seu comentário..." required></textarea>
+                        <input type="submit" value="Enviar">
+                    </form>
+                <?php } else { ?>
+                    <p>Você precisa <a href="login.php">fazer login</a> para comentar.</p>
+                <?php } ?>
+            </div>
+            
             <!-- Exibir Comentários -->
             <div class="comentarios-section">
                 <h3>Comentários:</h3>
@@ -109,21 +123,6 @@ try {
                     ?>
                 </div>
             </div>
-
-            <!-- Formulário de Comentário -->
-            <div class="comentario-form">
-                <h3>Deixe seu comentário:</h3>
-                <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) { ?>
-                    <form action="backend/processa_comentario.php" method="POST">
-                        <input type="hidden" name="id_noticia" value="<?php echo $id; ?>">
-                        <textarea name="comentario" placeholder="Escreva seu comentário..." required></textarea>
-                        <input type="submit" value="Enviar">
-                    </form>
-                <?php } else { ?>
-                    <p>Você precisa <a href="login.php">fazer login</a> para comentar.</p>
-                <?php } ?>
-            </div>
-
         </div>
     </div>
 
