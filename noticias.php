@@ -106,7 +106,7 @@ try {
                         <input class="button" type="submit" value="Enviar">
                     </form>
                 <?php } else { ?>
-                    <p>Você precisa <a href="login.php">fazer login</a> para comentar.</p>
+                    <p>Você precisa <a class="text-login" href="login.php">fazer login</a> para comentar.</p>
                 <?php } ?>
             </div>
 

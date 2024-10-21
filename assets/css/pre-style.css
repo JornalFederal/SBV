@@ -447,6 +447,14 @@ footer p {
   margin-top: 0;
 }
 
+.text-login{
+  color: #17882c;
+}
+
+.text-login:hover{
+  color: #00420c;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   #video {
